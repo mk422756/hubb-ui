@@ -57,7 +57,7 @@ export default class extends Vue {
         throw new Error()
       }
 
-      await (this as any).$apollo.mutate({
+      const ret = await (this as any).$apollo.mutate({
         mutation: gql`
           mutation createUser(
             $name: String!
@@ -67,7 +67,7 @@ export default class extends Vue {
             createUser(
               input: { name: $name, accountId: $accountId, uid: $uid }
             ) {
-              name
+              accountId
             }
           }
         `,
@@ -77,6 +77,7 @@ export default class extends Vue {
           uid: cred.user.uid
         }
       })
+      this.$router.push('/users/' + ret.data.createUser.accountId)
     } catch (e) {
       console.log(e)
       console.log(e.code, e.message)
