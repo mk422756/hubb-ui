@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="main">
     <div>
       <!-- <logo />
       <h1 class="title">
@@ -20,7 +20,10 @@
         >
       </div> -->
       {{ user }}
-      <n-link class="button" to="signup">Sign up</n-link>
+      <div>
+        <n-link class="button" to="signup">Sign up</n-link><br />
+        <n-link class="button" to="login">Login</n-link>
+      </div>
     </div>
   </div>
 </template>
@@ -67,7 +70,7 @@ export default class extends Vue {
 </script>
 
 <style>
-.container {
+.main {
   margin: 0 auto;
   min-height: 100vh;
   display: flex;

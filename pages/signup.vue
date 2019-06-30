@@ -77,9 +77,6 @@ export default class extends Vue {
           uid: cred.user.uid
         }
       })
-
-      const idToken = await cred.user.getIdToken(/* forceRefresh */ true)
-      await (this as any).$apolloHelpers.onLogin(idToken)
     } catch (e) {
       console.log(e)
       console.log(e.code, e.message)
