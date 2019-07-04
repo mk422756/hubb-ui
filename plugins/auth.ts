@@ -4,13 +4,12 @@ export default ({ app, store }: { app: any; store: any }): void => {
   auth.onAuthStateChanged(
     async (user): Promise<void> => {
       if (user) {
-        console.log('login success')
+        store.dispatch('user/fetchUser', { uid: user.uid })
         const idToken = await user.getIdToken(/* forceRefresh */ true)
         await app.$apolloHelpers.onLogin(idToken)
-        store.dispatch('user/updateUser', { uid: user.uid })
       } else {
-        await app.$apolloHelpers.onLogout()
         store.dispatch('user/resetUser')
+        await app.$apolloHelpers.onLogout()
       }
     }
   )

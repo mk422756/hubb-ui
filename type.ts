@@ -6,6 +6,7 @@ export interface Scalars {
   Boolean: boolean
   Int: number
   Float: number
+  Time: any
 }
 
 export interface Mutation {
@@ -70,6 +71,11 @@ export interface QueryPageArgs {
 export interface UpdateUser {
   name?: Maybe<Scalars['String']>
   description?: Maybe<Scalars['String']>
+  twitter?: Maybe<Scalars['String']>
+  instagram?: Maybe<Scalars['String']>
+  facebook?: Maybe<Scalars['String']>
+  homepage?: Maybe<Scalars['String']>
+  birthday?: Maybe<Scalars['String']>
 }
 
 export interface User {
@@ -79,5 +85,10 @@ export interface User {
   accountId: Scalars['String']
   image: Scalars['String']
   description: Scalars['String']
+  twitter: Scalars['String']
+  instagram: Scalars['String']
+  facebook: Scalars['String']
+  homepage: Scalars['String']
+  birthday: Scalars['String']
   pages: Page[]
 }

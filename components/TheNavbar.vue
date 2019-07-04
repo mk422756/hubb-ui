@@ -70,7 +70,11 @@
             </n-link>
           </div>
           <div v-else>
-            <span class="is-size-5 has-text-weight-bold	">{{ user.name }}</span>
+            <n-link :to="'/users/' + user.accountId">
+              <span class="is-size-5 has-text-weight-bold	">{{
+                user.name
+              }}</span>
+            </n-link>
           </div>
         </div>
       </div>
@@ -79,6 +83,8 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import { User } from '~/type'
+
 @Component({})
 export default class extends Vue {
   openBurger = false
@@ -86,7 +92,7 @@ export default class extends Vue {
     this.openBurger = !this.openBurger
   }
 
-  get user() {
+  get user(): User {
     return this.$store.state.user.user
   }
 

@@ -16,7 +16,7 @@ export const state = () => ({
 })
 
 export const actions: ActionTree<UsersState, RootState> = {
-  updateUser({ commit }, { uid }) {
+  fetchUser({ commit }, { uid }) {
     return new Promise(async (resolve, reject) => {
       try {
         let client = (this as any).app.apolloProvider.defaultClient
@@ -24,10 +24,17 @@ export const actions: ActionTree<UsersState, RootState> = {
           query: gql`
             query findUser($uid: String!) {
               user(uid: $uid) {
+                id
                 name
                 accountId
                 image
                 description
+                twitter
+                facebook
+                instagram
+                homepage
+                image
+                birthday
               }
             }
           `,
@@ -43,26 +50,13 @@ export const actions: ActionTree<UsersState, RootState> = {
     })
   },
 
+  updateUser({ commit }, { user }) {
+    commit('updateUser', user)
+  },
+
   resetUser({ commit }) {
     commit('updateUser', null)
   }
-  // updateUser({ state, commit, dispatch }) {
-  //   return new Promise((resolve, reject) => {
-  //     auth.onAuthStateChanged(async authUser => {
-  //       if (authUser) {
-  //         commit('updateId', authUser.uid)
-  //         commit('updateEmail', authUser.email)
-  //         dispatch('fetchUser')
-  //         dispatch('fetchPages')
-  //         dispatch('fetchTimeline')
-
-  //         resolve()
-  //       } else {
-  //         reject()
-  //       }
-  //     })
-  //   })
-  // }
 }
 
 export const mutations: MutationTree<UsersState> = {
@@ -72,10 +66,10 @@ export const mutations: MutationTree<UsersState> = {
 }
 
 export const getters: GetterTree<UsersState, RootState> = {
-  // getUser: (state): User => {
-  //   return {
-  //     id: state.id,
-  //     data: state.data
-  //   }
-  // }
+  isMyAccountId: state => (accountId: string) => {
+    if (!state.user) {
+      return false
+    }
+    return state.user.accountId === accountId
+  }
 }

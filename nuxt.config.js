@@ -27,10 +27,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [
-    { src: '~plugins/firebase' },
-    { src: '~plugins/auth', mode: 'client' }
-  ],
+  plugins: [{ src: '~plugins/firebase' }, { src: '~plugins/auth' }],
   /*
    ** Nuxt.js modules
    */
@@ -40,8 +37,13 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
     '@nuxtjs/apollo',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/toast'
   ],
+
+  toast: {
+    duration: 2000
+  },
 
   apollo: {
     clientConfigs: {

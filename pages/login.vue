@@ -70,10 +70,9 @@ export default class extends Vue {
   }
 }
 </script>
-
-<style>
+<style scoped>
 .box {
-  margin: 100px auto;
+  margin: 0 auto;
   max-width: 600px;
 }
 </style>
