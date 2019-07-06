@@ -65,10 +65,6 @@ export default class extends Vue {
     return this.$store.state.user.user
   }
 
-  get birthYear() {
-    return 1
-  }
-
   @Watch('user', { immediate: true, deep: true })
   onUserChanged(user: User) {
     if (!user) {
@@ -84,7 +80,6 @@ export default class extends Vue {
   }
 
   async submit() {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     try {
       const ret = await (this as any).$apollo.mutate({
         mutation: gql`

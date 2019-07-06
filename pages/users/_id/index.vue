@@ -1,12 +1,31 @@
 <template>
-  <div class="main">
+  <div v-if="user" class="main">
     <div>
-      <div>{{ user }}</div>
-      {{ isMyAccountId }}
-      <button class="button" @click="logout">ログアウト</button><br />
-      <n-link v-if="isMyAccountId" class="button" to="profile" append
-        >設定</n-link
-      >
+      <div v-if="isMyAccountId" class="title is-inline">マイページ</div>
+      <div class="buttons is-inline is-pulled-right">
+        <button class="button" @click="logout">ログアウト</button>
+        <n-link v-if="isMyAccountId" class="button" to="profile" append
+          >設定</n-link
+        >
+      </div>
+      <div class="user">
+        <user-box
+          :name="user.name"
+          :account-id="user.accountId"
+          :description="user.description"
+        />
+      </div>
+      <p class="title page-list">ページ一覧</p>
+      <div class="pages">
+        <div v-for="page in user.pages" :key="page.id" class="page">
+          <page-box
+            :id="page.id"
+            :name="page.name"
+            :text="page.text"
+            :created-at="page.createdAt"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -17,8 +36,14 @@ import { Vue, Component } from 'vue-property-decorator'
 import { auth } from '~/plugins/firebase'
 import gql from 'graphql-tag'
 import { User } from '~/type'
+import UserBox from '~/components/UserBox.vue'
+import PageBox from '~/components/PageBox.vue'
 
 @Component({
+  components: {
+    PageBox,
+    UserBox
+  },
   apollo: {
     user: {
       prefetch: true,
@@ -35,9 +60,11 @@ import { User } from '~/type'
             image
             description
             pages {
+              id
               name
               text
               image
+              createdAt
             }
           }
         }
@@ -58,3 +85,20 @@ export default class extends Vue {
   }
 }
 </script>
+<style>
+.user {
+  margin-top: 20px;
+}
+
+.page-list {
+  margin-top: 20px;
+}
+
+.pages {
+  margin-top: 20px;
+}
+
+.page {
+  margin-top: 10px;
+}
+</style>

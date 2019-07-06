@@ -8,7 +8,13 @@
           height="28"
         />
       </n-link>
-
+      <n-link
+        v-if="isLogin && user"
+        class="navbar-item"
+        :to="`/users/${user.accountId}/create_page`"
+      >
+        <button class="button is-primary is-outlined">新規ページ作成</button>
+      </n-link>
       <a
         role="button"
         class="navbar-burger burger"

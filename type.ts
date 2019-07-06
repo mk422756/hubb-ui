@@ -48,6 +48,8 @@ export interface Page {
   text: Scalars['String']
   user: User
   image: Scalars['String']
+  createdAt: Scalars['String']
+  updatedAt: Scalars['String']
 }
 
 export interface Query {
@@ -91,4 +93,6 @@ export interface User {
   homepage: Scalars['String']
   birthday: Scalars['String']
   pages: Page[]
+  createdAt: Scalars['String']
+  updatedAt: Scalars['String']
 }
