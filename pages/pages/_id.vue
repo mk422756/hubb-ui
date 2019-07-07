@@ -4,7 +4,7 @@
       <p class="title">{{ page.name }}</p>
     </div>
     <div class="main">
-      <pre>{{ page.text }}</pre>
+      <div v-html="page.text" />
     </div>
 
     <div class="user">

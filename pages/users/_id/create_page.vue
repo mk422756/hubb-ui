@@ -10,11 +10,12 @@
 
       <div class="field">
         <label class="label">本文</label>
-        <div class="control">
-          <textarea v-model="text" class="textarea" />
+        <div class="control editor">
+          <!-- <textarea v-model="text" class="textarea" /> -->
+          <editor :text="text" @update-text="updateText" />
         </div>
       </div>
-      <div class="has-text-centered">
+      <div class="has-text-centered create-button">
         <button class="button is-primary" @click="submit">作成</button>
       </div>
     </div>
@@ -25,8 +26,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Vue, Component } from 'vue-property-decorator'
 import gql from 'graphql-tag'
+import Editor from '~/components/Editor.vue'
 
-@Component({})
+@Component({
+  components: {
+    Editor
+  }
+})
 export default class extends Vue {
   name = ''
   text = ''
@@ -52,7 +58,6 @@ export default class extends Vue {
         }
       })
       console.log(res)
-      // this.$store.dispatch('user/updateUser', { user: ret.data.updateUser })
       this.$router.push(`/pages/${res.data.createPage.id}`)
       this.$toast.success('保存しました')
     } catch (e) {
@@ -60,11 +65,19 @@ export default class extends Vue {
       this.$toast.error('保存に失敗しました')
     }
   }
+
+  updateText(text: string) {
+    this.text = text
+  }
 }
 </script>
 <style>
 .box {
   margin: 0 auto;
   max-width: 800px;
+}
+
+.create-button {
+  margin-top: 50px;
 }
 </style>

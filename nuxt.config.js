@@ -14,7 +14,14 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href:
+          '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css'
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -23,14 +30,15 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@fortawesome/fontawesome-svg-core/styles.css'],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
     { src: '~plugins/firebase' },
     { src: '~plugins/auth' },
-    { src: '~plugins/dayjs' }
+    { src: '~plugins/dayjs' },
+    { src: '~/plugins/fontawesome' }
   ],
   /*
    ** Nuxt.js modules
