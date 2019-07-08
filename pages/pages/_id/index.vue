@@ -1,5 +1,10 @@
 <template>
   <div v-if="page && page.user">
+    <div v-if="isMyAccountId">
+      <n-link to="edit" class="button is-primary is-pulled-right" append
+        >編集</n-link
+      >
+    </div>
     <div>
       <p class="title">{{ page.name }}</p>
     </div>
@@ -54,9 +59,13 @@ import UserBox from '~/components/UserBox.vue'
   }
 })
 export default class extends Vue {
-  page = {}
+  page = {} as any
   get pageId() {
     return this.$route.params.id
+  }
+
+  get isMyAccountId() {
+    return this.$store.getters['user/isMyAccountId'](this.page.user.accountId)
   }
 }
 </script>

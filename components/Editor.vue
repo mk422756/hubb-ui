@@ -100,7 +100,7 @@ export default {
   },
   mounted() {
     this.editor = new Editor({
-      content: '',
+      content: this.text,
       extensions: [
         // The editor will accept paragraphs and headline elements as part of its document schema.
         new Heading({ levels: [1, 2, 3] }),
