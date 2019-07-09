@@ -20,7 +20,7 @@
             >
             <small>{{ formattedCreatedAt }}</small>
             <br />
-            {{ text }}
+            {{ strippedText }}
           </p>
         </div>
       </div>
@@ -30,6 +30,7 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import dayjs from 'dayjs'
+import striptags from 'striptags'
 
 @Component({})
 export default class extends Vue {
@@ -38,10 +39,14 @@ export default class extends Vue {
   @Prop({ default: '' }) readonly text!: string
   @Prop({ default: '' }) readonly createdAt!: string
 
-  get formattedCreatedAt() {
+  get formattedCreatedAt(): string {
     return this.createdAt === ''
       ? ''
       : dayjs(this.createdAt).format('YYYY/MM/DD HH:mm:ss')
+  }
+
+  get strippedText(): string {
+    return striptags(this.text).substring(0, 100)
   }
 }
 </script>

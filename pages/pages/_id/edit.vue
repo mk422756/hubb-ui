@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="has-text-centered create-button">
-        <button class="button is-primary" @click="submit">作成</button>
+        <button class="button is-primary" @click="submit">保存</button>
       </div>
     </div>
   </div>
@@ -24,6 +24,7 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Vue, Component } from 'vue-property-decorator'
+import { Page } from '~/type'
 import gql from 'graphql-tag'
 import UserBox from '~/components/UserBox.vue'
 import Editor from '~/components/Editor.vue'
@@ -60,7 +61,7 @@ import Editor from '~/components/Editor.vue'
   }
 })
 export default class extends Vue {
-  page = {} as any
+  page: Page | null = null
   name = ''
   text = ''
   get pageId() {
@@ -76,7 +77,7 @@ export default class extends Vue {
 
   async submit() {
     try {
-      const ret = await (this as any).$apollo.mutate({
+      await (this as any).$apollo.mutate({
         mutation: gql`
           mutation($id: ID!, $name: String!, $text: String!) {
             updatePage(id: $id, input: { name: $name, text: $text }) {
@@ -94,6 +95,7 @@ export default class extends Vue {
         }
       })
       this.$toast.success('保存しました')
+      this.$router.push(`/pages/${this.$route.params.id}`)
     } catch (e) {
       this.$toast.error('保存に失敗しました')
     }
@@ -103,7 +105,10 @@ export default class extends Vue {
     this.text = text
   }
 
-  get isMyAccountId() {
+  get isMyAccountId(): boolean {
+    if (!this.page) {
+      return false
+    }
     return this.$store.getters['user/isMyAccountId'](this.page.user.accountId)
   }
 }

@@ -38,7 +38,8 @@ export default {
     { src: '~plugins/firebase' },
     { src: '~plugins/auth' },
     { src: '~plugins/dayjs' },
-    { src: '~/plugins/fontawesome' }
+    { src: '~/plugins/fontawesome' },
+    { src: '~/plugins/sanitize' }
   ],
   /*
    ** Nuxt.js modules

@@ -22,6 +22,7 @@ module.exports = {
     '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/member-delimiter-style': 'off',
     'vue/max-attributes-per-line': 'off',
+    'vue/no-v-html': 'off',
     "quotes": ["warn", "single"],
     "no-extra-semi": "warn",
     "vue/html-self-closing": ["error", {

@@ -5,13 +5,13 @@
         >編集</n-link
       >
     </div>
-    <div>
-      <p class="title">{{ page.name }}</p>
+    <div class="main-view">
+      <page-main-view
+        :name="page.name"
+        :text="page.text"
+        :created-at="page.createdAt"
+      />
     </div>
-    <div class="main">
-      <div v-html="page.text" />
-    </div>
-
     <div class="user">
       <user-box
         :name="page.user.name"
@@ -25,12 +25,14 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Vue, Component } from 'vue-property-decorator'
+import PageMainView from '~/components/PageMainView.vue'
 import gql from 'graphql-tag'
 import UserBox from '~/components/UserBox.vue'
 
 @Component({
   components: {
-    UserBox
+    UserBox,
+    PageMainView
   },
   apollo: {
     page: {
@@ -46,6 +48,7 @@ import UserBox from '~/components/UserBox.vue'
             name
             text
             id
+            createdAt
             user {
               id
               accountId
@@ -76,5 +79,10 @@ export default class extends Vue {
 
 .user {
   margin-top: 50px;
+}
+
+.main-view {
+  width: 800px;
+  margin: 0 auto;
 }
 </style>

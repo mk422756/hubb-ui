@@ -78,7 +78,6 @@ import {
   HardBreak,
   Blockquote,
   History,
-  Image,
   CodeBlockHighlight
 } from 'tiptap-extensions'
 
