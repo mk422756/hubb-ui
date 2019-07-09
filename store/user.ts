@@ -66,6 +66,10 @@ export const mutations: MutationTree<UsersState> = {
 }
 
 export const getters: GetterTree<UsersState, RootState> = {
+  isLogin: state => {
+    return state.user ? true : false
+  },
+
   isMyAccountId: state => (accountId: string) => {
     if (!state.user) {
       return false

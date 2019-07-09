@@ -13,7 +13,7 @@
       />
     </div>
     <div class="user">
-      <user-box
+      <box-user
         :name="page.user.name"
         :account-id="page.user.accountId"
         :description="page.user.description"
@@ -27,11 +27,11 @@
 import { Vue, Component } from 'vue-property-decorator'
 import PageMainView from '~/components/PageMainView.vue'
 import gql from 'graphql-tag'
-import UserBox from '~/components/UserBox.vue'
+import BoxUser from '~/components/BoxUser.vue'
 
 @Component({
   components: {
-    UserBox,
+    BoxUser,
     PageMainView
   },
   apollo: {

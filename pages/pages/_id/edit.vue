@@ -26,12 +26,10 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { Page } from '~/type'
 import gql from 'graphql-tag'
-import UserBox from '~/components/UserBox.vue'
 import Editor from '~/components/Editor.vue'
 
 @Component({
   components: {
-    UserBox,
     Editor
   },
   apollo: {

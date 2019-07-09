@@ -9,7 +9,7 @@
         >
       </div>
       <div class="user">
-        <user-box
+        <box-user
           :name="user.name"
           :account-id="user.accountId"
           :description="user.description"
@@ -18,7 +18,7 @@
       <p class="title page-list">ページ一覧</p>
       <div class="pages">
         <div v-for="page in user.pages" :key="page.id" class="page">
-          <page-box
+          <box-page
             :id="page.id"
             :name="page.name"
             :text="page.text"
@@ -36,13 +36,13 @@ import { Vue, Component } from 'vue-property-decorator'
 import { auth } from '~/plugins/firebase'
 import gql from 'graphql-tag'
 import { User } from '~/type'
-import UserBox from '~/components/UserBox.vue'
-import PageBox from '~/components/PageBox.vue'
+import BoxUser from '~/components/BoxUser.vue'
+import BoxPage from '~/components/BoxPage.vue'
 
 @Component({
   components: {
-    PageBox,
-    UserBox
+    BoxPage,
+    BoxUser
   },
   apollo: {
     user: {
