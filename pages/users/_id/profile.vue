@@ -48,8 +48,8 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Vue, Component, Watch } from 'vue-property-decorator'
-import { User } from '~/type'
 import gql from 'graphql-tag'
+import { User } from '../../..'
 
 @Component({})
 export default class extends Vue {

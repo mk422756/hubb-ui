@@ -24,9 +24,9 @@
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Vue, Component } from 'vue-property-decorator'
-import { Page } from '~/type'
 import gql from 'graphql-tag'
 import Editor from '~/components/Editor.vue'
+import { Page } from '../../..'
 
 @Component({
   components: {

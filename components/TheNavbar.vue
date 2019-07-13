@@ -89,7 +89,7 @@
 </template>
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { User } from '~/type'
+import { User } from '..'
 
 @Component({})
 export default class extends Vue {

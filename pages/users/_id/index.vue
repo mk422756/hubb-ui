@@ -35,9 +35,9 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { auth } from '~/plugins/firebase'
 import gql from 'graphql-tag'
-import { User } from '~/type'
 import BoxUser from '~/components/BoxUser.vue'
 import BoxPage from '~/components/BoxPage.vue'
+import { User } from '../../..'
 
 @Component({
   components: {

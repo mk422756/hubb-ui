@@ -57,16 +57,24 @@
               >
                 <font-awesome-icon icon="code" />
               </button>
+              <button
+                class="menubar__button button is-small is-outlined"
+                @click="openModal(commands.image)"
+              >
+                <font-awesome-icon icon="image" />
+              </button>
             </div>
           </div>
         </editor-floating-menu>
         <editor-content :editor="editor" />
       </div>
+      <image-modal ref="ytmodal" @onConfirm="addCommand" />
     </no-ssr>
   </div>
 </template>
 
 <script>
+import ImageModal from '~/components/ImageModal.vue'
 import javascript from 'highlight.js/lib/languages/javascript'
 import go from 'highlight.js/lib/languages/go'
 import css from 'highlight.js/lib/languages/css'
@@ -78,11 +86,13 @@ import {
   HardBreak,
   Blockquote,
   History,
-  CodeBlockHighlight
+  CodeBlockHighlight,
+  Image
 } from 'tiptap-extensions'
 
 export default {
   components: {
+    ImageModal,
     EditorFloatingMenu,
     EditorContent
   },
@@ -108,6 +118,7 @@ export default {
         new HardBreak(),
         new Blockquote(),
         new History(),
+        new Image(),
         new CodeBlockHighlight({
           languages: {
             javascript,
@@ -123,6 +134,16 @@ export default {
   },
   beforeDestroy() {
     this.editor.destroy()
+  },
+  methods: {
+    openModal(command) {
+      this.$refs.ytmodal.showModal(command)
+    },
+    addCommand(data) {
+      if (data.command !== null) {
+        data.command(data.data)
+      }
+    }
   }
 }
 </script>

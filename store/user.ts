@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { ActionTree, MutationTree, GetterTree } from 'vuex'
 import gql from 'graphql-tag'
-import { User } from '~/type'
+import { User } from '..'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface RootState {}
@@ -24,6 +24,7 @@ export const actions: ActionTree<UsersState, RootState> = {
           query: gql`
             query findUser($uid: String!) {
               user(uid: $uid) {
+                uid
                 id
                 name
                 accountId

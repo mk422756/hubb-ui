@@ -28,6 +28,7 @@ import { Vue, Component } from 'vue-property-decorator'
 import PageMainView from '~/components/PageMainView.vue'
 import gql from 'graphql-tag'
 import BoxUser from '~/components/BoxUser.vue'
+import { Page } from '../../..'
 
 @Component({
   components: {
@@ -62,7 +63,7 @@ import BoxUser from '~/components/BoxUser.vue'
   }
 })
 export default class extends Vue {
-  page = {} as any
+  page: Page = {} as any
   get pageId() {
     return this.$route.params.id
   }

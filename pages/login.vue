@@ -27,7 +27,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { auth } from '~/plugins/firebase'
 import gql from 'graphql-tag'
-import { User } from '~/type'
+import { User } from '..'
 
 @Component({})
 export default class extends Vue {
