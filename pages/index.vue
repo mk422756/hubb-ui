@@ -26,6 +26,7 @@
           :name="page.name"
           :text="page.text"
           :created-at="page.createdAt"
+          :image="page.image"
           :user-name="page.user.name"
           :user-account-id="page.user.accountId"
           :user-image="page.user.image"
@@ -56,6 +57,7 @@ import gql from 'graphql-tag'
             id
             text
             name
+            image
             createdAt
             user {
               id

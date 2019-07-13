@@ -5,6 +5,11 @@
         >編集</n-link
       >
     </div>
+    <div v-if="page.image" class="has-text-centered ">
+      <figure class="image container is-128x128">
+        <img :src="page.image" alt="page main image" class="is-inline-block" />
+      </figure>
+    </div>
     <div class="main-view">
       <page-main-view
         :name="page.name"
@@ -50,6 +55,7 @@ import { Page } from '../../..'
             name
             text
             id
+            image
             createdAt
             user {
               id

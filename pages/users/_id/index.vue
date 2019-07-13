@@ -23,6 +23,7 @@
             :id="page.id"
             :name="page.name"
             :text="page.text"
+            :image="page.image"
             :created-at="page.createdAt"
           />
         </div>

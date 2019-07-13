@@ -7,7 +7,7 @@
         <h2 class="has-text-weight-semibold is-size-5">プロフィール画像</h2>
         <div class="has-text-centered">
           <crop ref="crop" :image="user.image" />
-          <button class="button is-primary" @click="getImage">
+          <button class="button is-primary" @click="saveImage">
             画像保存
           </button>
         </div>
@@ -95,7 +95,7 @@ export default class extends Vue {
     this.birthday = user.birthday
   }
 
-  async getImage() {
+  async saveImage() {
     try {
       const data = (this as any).$refs.crop.getData()
       const storageRef = storage.ref()

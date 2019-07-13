@@ -4,11 +4,10 @@
       <div class="media-left">
         <n-link :to="`/pages/${id}`">
           <figure class="image is-64x64">
-            <img
-              class="is-rounded"
-              src="https://bulma.io/images/placeholders/128x128.png"
-              alt="Image"
-            />
+            <img v-if="image" :src="image" alt="user image" />
+            <span v-else class="icon is-large">
+              <font-awesome-icon icon="book-open" class="fas fa-3x" />
+            </span>
           </figure>
         </n-link>
       </div>
@@ -51,6 +50,7 @@ export default class extends Vue {
   @Prop({ default: '' }) readonly id!: string
   @Prop({ default: '' }) readonly name!: string
   @Prop({ default: '' }) readonly text!: string
+  @Prop({ default: '' }) readonly image!: string
   @Prop({ default: '' }) readonly createdAt!: string
   @Prop({ default: '' }) readonly userName!: string
   @Prop({ default: '' }) readonly userAccountId!: string

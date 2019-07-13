@@ -1,6 +1,15 @@
 <template>
-  <div v-if="isMyAccountId" class="main">
+  <div v-if="isMyAccountId && page" class="main">
     <div class="profile-settings box">
+      <div>
+        <h2 class="has-text-weight-semibold is-size-5">ページ画像</h2>
+        <div class="has-text-centered">
+          <crop ref="crop" :image="page.image" />
+          <button class="button is-primary" @click="saveImage">
+            画像保存
+          </button>
+        </div>
+      </div>
       <div class="field">
         <label class="label">ページ名</label>
         <div class="control">
@@ -26,11 +35,14 @@
 import { Vue, Component } from 'vue-property-decorator'
 import gql from 'graphql-tag'
 import Editor from '~/components/Editor.vue'
-import { Page } from '../../..'
+import Crop from '~/components/ImageCrop.vue'
+import { Page, User } from '../../..'
+import { storage } from '~/plugins/firebase'
 
 @Component({
   components: {
-    Editor
+    Editor,
+    Crop
   },
   apollo: {
     page: {
@@ -46,6 +58,7 @@ import { Page } from '../../..'
             name
             text
             id
+            image
             user {
               id
               accountId
@@ -99,10 +112,48 @@ export default class extends Vue {
     }
   }
 
+  async submitImage(image: string) {
+    await (this as any).$apollo.mutate({
+      mutation: gql`
+        mutation($id: ID!, $image: String!) {
+          updatePage(id: $id, input: { image: $image }) {
+            id
+            image
+          }
+        }
+      `,
+      // Parameters
+      variables: {
+        id: this.$route.params.id,
+        image: image
+      }
+    })
+  }
+
   updateText(text: string) {
     this.text = text
   }
 
+  async saveImage() {
+    try {
+      const data = (this as any).$refs.crop.getData()
+      const storageRef = storage.ref()
+      const imagesRef = storageRef.child(
+        `user/${this.user.uid}/page/${this.$route.params.id}/main`
+      )
+      const snapshot = await imagesRef.putString(data, 'data_url')
+      const downloadURL = await snapshot.ref.getDownloadURL()
+      await this.submitImage(downloadURL)
+      this.$toast.success('画像を保存しました')
+    } catch (e) {
+      console.log(e)
+      this.$toast.error('画像の保存に失敗しました')
+    }
+  }
+
+  get user(): User {
+    return this.$store.state.user.user
+  }
   get isMyAccountId(): boolean {
     if (!this.page) {
       return false

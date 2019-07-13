@@ -1,6 +1,12 @@
 <template>
   <div class="main">
     <div class="profile-settings box">
+      <div>
+        <h2 class="has-text-weight-semibold is-size-5">ページ画像</h2>
+        <div class="has-text-centered">
+          <crop ref="crop" />
+        </div>
+      </div>
       <div class="field">
         <label class="label">ページ名</label>
         <div class="control">
@@ -26,19 +32,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Vue, Component } from 'vue-property-decorator'
 import gql from 'graphql-tag'
+import Crop from '~/components/ImageCrop.vue'
 import Editor from '~/components/Editor.vue'
+import { storage } from '~/plugins/firebase'
+import { User } from '../../..'
 
 @Component({
   components: {
-    Editor
+    Editor,
+    Crop
   }
 })
 export default class extends Vue {
   name = ''
   text = ''
 
-  get isMyAccountId() {
-    return this.$store.getters['user/isMyAccountId'](this.$route.params.id)
+  get user(): User {
+    return this.$store.state.user.user
   }
 
   async submit() {
@@ -58,12 +68,42 @@ export default class extends Vue {
         }
       })
       console.log(res)
+      await this.saveImage(res.data.createPage.id)
       this.$router.push(`/pages/${res.data.createPage.id}`)
       this.$toast.success('保存しました')
     } catch (e) {
       console.log(e)
       this.$toast.error('保存に失敗しました')
     }
+  }
+
+  async saveImage(pageId: string) {
+    const data = (this as any).$refs.crop.getData()
+    const storageRef = storage.ref()
+    const imagesRef = storageRef.child(
+      `user/${this.user.uid}/page/${pageId}/main`
+    )
+    const snapshot = await imagesRef.putString(data, 'data_url')
+    const downloadURL = await snapshot.ref.getDownloadURL()
+    await this.submitImage(pageId, downloadURL)
+  }
+
+  async submitImage(pageId: string, image: string) {
+    await (this as any).$apollo.mutate({
+      mutation: gql`
+        mutation($id: ID!, $image: String!) {
+          updatePage(id: $id, input: { image: $image }) {
+            id
+            image
+          }
+        }
+      `,
+      // Parameters
+      variables: {
+        id: pageId,
+        image: image
+      }
+    })
   }
 
   updateText(text: string) {
