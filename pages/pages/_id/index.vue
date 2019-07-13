@@ -1,6 +1,9 @@
 <template>
   <div v-if="page && page.user">
     <div v-if="isMyAccountId">
+      <button class="button is-danger is-pulled-right" @click="deletePage">
+        削除
+      </button>
       <n-link to="edit" class="button is-primary is-pulled-right" append
         >編集</n-link
       >
@@ -72,12 +75,41 @@ import { Page } from '../../..'
 })
 export default class extends Vue {
   page: Page = {} as any
+
   get pageId() {
     return this.$route.params.id
   }
 
   get isMyAccountId() {
     return this.$store.getters['user/isMyAccountId'](this.page.user.accountId)
+  }
+
+  get user() {
+    return this.$store.state.user.user
+  }
+
+  async deletePage() {
+    try {
+      if (!window.confirm('ページを削除します。よろしいですか？')) {
+        return
+      }
+      await (this as any).$apollo.mutate({
+        mutation: gql`
+          mutation($id: ID!) {
+            deletePage(id: $id)
+          }
+        `,
+        // Parameters
+        variables: {
+          id: this.$route.params.id
+        }
+      })
+      this.$toast.success('ページを削除しました')
+      this.$router.push(`/users/${this.user.accountId}`)
+    } catch (e) {
+      console.log(e)
+      this.$toast.error('ページの削除に失敗しました')
+    }
   }
 }
 </script>

@@ -67,7 +67,6 @@ export default class extends Vue {
           userId: this.$store.state.user.user.id
         }
       })
-      console.log(res)
       await this.saveImage(res.data.createPage.id)
       this.$router.push(`/pages/${res.data.createPage.id}`)
       this.$toast.success('保存しました')
@@ -79,6 +78,9 @@ export default class extends Vue {
 
   async saveImage(pageId: string) {
     const data = (this as any).$refs.crop.getData()
+    if (!data) {
+      return
+    }
     const storageRef = storage.ref()
     const imagesRef = storageRef.child(
       `user/${this.user.uid}/page/${pageId}/main`
