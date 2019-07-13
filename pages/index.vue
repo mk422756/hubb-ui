@@ -6,6 +6,7 @@
           :name="user.name"
           :account-id="user.accountId"
           :description="user.description"
+          :image="user.image"
         />
       </div>
     </div>
@@ -27,6 +28,7 @@
           :created-at="page.createdAt"
           :user-name="page.user.name"
           :user-account-id="page.user.accountId"
+          :user-image="page.user.image"
         />
       </div>
     </div>
@@ -59,6 +61,7 @@ import gql from 'graphql-tag'
               id
               name
               accountId
+              image
             }
           }
         }

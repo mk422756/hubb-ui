@@ -5,7 +5,7 @@
       <div class="buttons is-inline is-pulled-right">
         <button class="button" @click="logout">ログアウト</button>
         <n-link v-if="isMyAccountId" class="button" to="profile" append
-          >設定</n-link
+          >プロフィール設定</n-link
         >
       </div>
       <div class="user">
@@ -13,6 +13,7 @@
           :name="user.name"
           :account-id="user.accountId"
           :description="user.description"
+          :image="user.image"
         />
       </div>
       <p class="title page-list">ページ一覧</p>

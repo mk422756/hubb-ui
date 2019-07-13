@@ -28,11 +28,10 @@
           <div class="level-left">
             <figure class="image is-32x32 level-item">
               <n-link :to="'/users/' + userAccountId">
-                <img
-                  class="is-rounded"
-                  src="https://bulma.io/images/placeholders/128x128.png"
-                  alt="Image"
-                />
+                <img v-if="userImage" :src="userImage" alt="user image" />
+                <span v-else class="icon is-medium">
+                  <font-awesome-icon icon="user" class="fas fa-lg" />
+                </span>
               </n-link>
             </figure>
             <p class="level-item">By {{ userName }} @{{ userAccountId }}</p>
@@ -55,6 +54,7 @@ export default class extends Vue {
   @Prop({ default: '' }) readonly createdAt!: string
   @Prop({ default: '' }) readonly userName!: string
   @Prop({ default: '' }) readonly userAccountId!: string
+  @Prop({ default: '' }) readonly userImage!: string
 
   get formattedCreatedAt(): string {
     return this.createdAt === ''

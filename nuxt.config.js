@@ -39,7 +39,8 @@ export default {
     { src: '~plugins/auth' },
     { src: '~plugins/dayjs' },
     { src: '~/plugins/fontawesome' },
-    { src: '~/plugins/sanitize' }
+    { src: '~/plugins/sanitize' },
+    { src: '~/plugins/crop', mode: 'client' }
   ],
   /*
    ** Nuxt.js modules

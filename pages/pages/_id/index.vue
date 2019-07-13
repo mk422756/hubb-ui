@@ -17,6 +17,7 @@
         :name="page.user.name"
         :account-id="page.user.accountId"
         :description="page.user.description"
+        :image="page.user.image"
       />
     </div>
   </div>
@@ -55,6 +56,7 @@ import { Page } from '../../..'
               accountId
               name
               description
+              image
             }
           }
         }

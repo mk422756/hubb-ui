@@ -1,8 +1,18 @@
 <template>
-  <div class="main">
+  <div v-if="user" class="main">
     <div class="profile-settings box">
       <n-link v-if="user" :to="'/users/' + user.accountId">戻る</n-link>
       <h1 class="title">プロフィール設定</h1>
+      <div>
+        <h2 class="has-text-weight-semibold is-size-5">プロフィール画像</h2>
+        <div class="has-text-centered">
+          <crop ref="crop" :image="user.image" />
+          <button class="button is-primary" @click="getImage">
+            画像保存
+          </button>
+        </div>
+      </div>
+      <hr />
       <div class="field">
         <label class="label">ユーザー名</label>
         <div class="control">
@@ -50,8 +60,14 @@
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import gql from 'graphql-tag'
 import { User } from '../../..'
+import Crop from '~/components/ImageCrop.vue'
+import { storage } from '~/plugins/firebase'
 
-@Component({})
+@Component({
+  components: {
+    Crop
+  }
+})
 export default class extends Vue {
   name = ''
   description = ''
@@ -77,6 +93,22 @@ export default class extends Vue {
     this.instagram = user.instagram
     this.homepage = user.homepage
     this.birthday = user.birthday
+  }
+
+  async getImage() {
+    try {
+      const data = (this as any).$refs.crop.getData()
+      const storageRef = storage.ref()
+      const imagesRef = storageRef.child(`user/${this.user.uid}/main`)
+      const snapshot = await imagesRef.putString(data, 'data_url')
+      const downloadURL = await snapshot.ref.getDownloadURL()
+      await this.submitImage(downloadURL)
+      this.$store.dispatch('user/updateImage', { image: downloadURL })
+      this.$toast.success('画像を保存しました')
+    } catch (e) {
+      console.log(e)
+      this.$toast.error('画像の保存に失敗しました')
+    }
   }
 
   async submit() {
@@ -129,7 +161,32 @@ export default class extends Vue {
         }
       })
       this.$store.dispatch('user/updateUser', { user: ret.data.updateUser })
-      this.$toast.success('保存しました')
+      this.$toast.success('プロフィール変更を保存しました')
+    } catch (e) {
+      console.log(e)
+      this.$toast.error('プロフィール変更の保存に失敗しました')
+    }
+  }
+  async submitImage(image: string) {
+    try {
+      const ret = await (this as any).$apollo.mutate({
+        mutation: gql`
+          mutation($id: ID!, $image: String!) {
+            updateUser(id: $id, input: { image: $image }) {
+              id
+              image
+            }
+          }
+        `,
+        // Parameters
+        variables: {
+          id: this.user.id,
+          image: image
+        }
+      })
+      console.log(ret)
+      // this.$store.dispatch('user/updateUser', { user: ret.data.updateUser })
+      // this.$toast.success('保存しました')
     } catch (e) {
       this.$toast.error('保存に失敗しました')
     }

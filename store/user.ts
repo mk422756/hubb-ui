@@ -55,6 +55,10 @@ export const actions: ActionTree<UsersState, RootState> = {
     commit('updateUser', user)
   },
 
+  updateImage({ commit }, { image }) {
+    commit('updateImage', image)
+  },
+
   resetUser({ commit }) {
     commit('updateUser', null)
   }
@@ -63,6 +67,10 @@ export const actions: ActionTree<UsersState, RootState> = {
 export const mutations: MutationTree<UsersState> = {
   updateUser(state, user: User) {
     state.user = user
+  },
+
+  updateImage(state, image: string) {
+    state.user.image = image
   }
 }
 
