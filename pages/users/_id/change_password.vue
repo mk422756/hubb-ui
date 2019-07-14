@@ -1,11 +1,17 @@
 <template>
   <div class="container">
     <div class="box">
-      <h1 class="is-size-5 has-text-weight-semibold title">退会</h1>
+      <h1 class="is-size-5 has-text-weight-semibold title">パスワード変更</h1>
       <div class="field">
-        <label class="label">パスワード確認</label>
+        <label class="label">古いパスワード</label>
         <div class="control">
-          <input v-model="password" class="input" type="password" />
+          <input v-model="oldPassword" class="input" type="password" />
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">新しいパスワード</label>
+        <div class="control">
+          <input v-model="newPassword" class="input" type="password" />
         </div>
       </div>
       <div class="has-text-danger">
@@ -13,33 +19,33 @@
       </div>
       <div class="has-text-centered">
         <button
-          class="button is-danger"
-          :class="{ 'is-loading': deleting }"
-          @click="withdraw"
+          class="button is-primary"
+          :class="{ 'is-loading': changing }"
+          @click="change"
         >
-          退会
+          変更
         </button>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Vue, Component } from 'vue-property-decorator'
 import firebase from 'firebase/app'
-import gql from 'graphql-tag'
+import { User } from '../../..'
 
 @Component({})
 export default class extends Vue {
-  password = ''
+  oldPassword = ''
+  newPassword = ''
   errMsg = ''
-  deleting = false
+  changing = false
 
-  get user() {
+  get user(): User {
     return this.$store.state.user.user
   }
 
-  async withdraw() {
+  async change() {
     const user = firebase.auth().currentUser
     if (!user || !user.email) {
       window.alert('認証エラー')
@@ -47,32 +53,23 @@ export default class extends Vue {
     }
 
     try {
-      this.deleting = true
+      this.changing = true
       const credential = firebase.auth.EmailAuthProvider.credential(
         user.email,
-        this.password
+        this.oldPassword
       )
       await user.reauthenticateWithCredential(credential)
-      await user.delete()
-      await (this as any).$apollo.mutate({
-        mutation: gql`
-          mutation($id: ID!) {
-            deleteUser(id: $id)
-          }
-        `,
-        variables: {
-          id: this.user.id
-        }
-      })
-      this.$toast.success('退会が完了しました')
-      this.$router.push('/')
+      await user.updatePassword(this.newPassword)
+
+      this.$toast.success('パスワードを変更しました')
+      this.$router.push(`/users/${this.user.accountId}`)
     } catch (e) {
       if (e.code === 'auth/wrong-password') {
         this.errMsg = 'パスワードが違います'
       } else {
         window.alert('エラーが発生しました')
       }
-      this.deleting = false
+      this.changing = false
     }
   }
 }
