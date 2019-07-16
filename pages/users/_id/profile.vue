@@ -16,41 +16,48 @@
       <div class="field">
         <label class="label">ユーザー名</label>
         <div class="control">
-          <input v-model="name" class="input" type="text" />
+          <input v-model.trim="name" class="input" type="text" />
         </div>
+        <p v-if="!name" class="help is-danger">ユーザー名は必須です</p>
       </div>
       <div class="field">
         <label class="label">自己紹介</label>
         <div class="control">
-          <textarea v-model="description" class="textarea" />
+          <textarea v-model.trim="description" class="textarea" />
         </div>
       </div>
       <div class="field">
         <label class="label">Twitter ID</label>
         <div class="control">
-          <input v-model="twitter" class="input" type="text" />
+          <input v-model.trim="twitter" class="input" type="text" />
         </div>
       </div>
       <div class="field">
         <label class="label">Facebook ID</label>
         <div class="control">
-          <input v-model="facebook" class="input" type="text" />
+          <input v-model.trim="facebook" class="input" type="text" />
         </div>
       </div>
       <div class="field">
         <label class="label">Instagram ID</label>
         <div class="control">
-          <input v-model="instagram" class="input" type="text" />
+          <input v-model.trim="instagram" class="input" type="text" />
         </div>
       </div>
       <div class="field">
         <label class="label">ホームページ URL</label>
         <div class="control">
-          <input v-model="homepage" class="input" type="text" />
+          <input v-model.trim="homepage" class="input" type="text" />
         </div>
       </div>
       <div class="has-text-centered">
-        <button class="button is-primary" @click="submit">変更</button>
+        <button
+          class="button is-primary"
+          :disabled="!canSubmit"
+          @click="submit"
+        >
+          変更
+        </button>
       </div>
     </div>
   </div>
@@ -79,6 +86,10 @@ export default class extends Vue {
 
   get user(): User {
     return this.$store.state.user.user
+  }
+
+  get canSubmit(): boolean {
+    return !!this.name
   }
 
   @Watch('user', { immediate: true, deep: true })

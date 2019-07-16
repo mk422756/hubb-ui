@@ -24,7 +24,13 @@
         </div>
       </div>
       <div class="has-text-centered create-button">
-        <button class="button is-primary" @click="submit">保存</button>
+        <button
+          class="button is-primary"
+          :disabled="!canSubmit"
+          @click="submit"
+        >
+          保存
+        </button>
       </div>
     </div>
   </div>
@@ -49,7 +55,7 @@ import { storage } from '~/plugins/firebase'
       prefetch: true,
       variables(): any {
         return {
-          id: this.$route.params.id
+          id: (this as any).$route.params.id
         }
       },
       query: gql`
@@ -77,6 +83,10 @@ export default class extends Vue {
   text = ''
   get pageId() {
     return this.$route.params.id
+  }
+
+  get canSubmit() {
+    return !!this.name
   }
 
   created() {

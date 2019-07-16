@@ -13,6 +13,7 @@
         <div class="control">
           <input v-model="newPassword" class="input" type="password" />
         </div>
+        <p class="help is-danger">{{ passwordError }}</p>
       </div>
       <div class="has-text-danger">
         {{ errMsg }}
@@ -21,6 +22,7 @@
         <button
           class="button is-primary"
           :class="{ 'is-loading': changing }"
+          :disabled="!canSubmit"
           @click="change"
         >
           変更
@@ -30,11 +32,21 @@
   </div>
 </template>
 <script lang="ts">
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Vue, Component } from 'vue-property-decorator'
 import firebase from 'firebase/app'
 import { User } from '../../..'
+import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
-@Component({})
+@Component({
+  validations: {
+    newPassword: {
+      required,
+      minLength: minLength(8),
+      maxLength: maxLength(20)
+    }
+  }
+})
 export default class extends Vue {
   oldPassword = ''
   newPassword = ''
@@ -43,6 +55,21 @@ export default class extends Vue {
 
   get user(): User {
     return this.$store.state.user.user
+  }
+
+  get canSubmit(): boolean {
+    return this.$v && !this.$v.$invalid && !!this.oldPassword
+  }
+
+  get passwordError(): string {
+    if (!this.$v) {
+      return ''
+    } else if (!(this as any).$v.newPassword.minLength) {
+      return '8文字以上で入力してください'
+    } else if (!(this as any).$v.newPassword.maxLength) {
+      return '20文字以内で入力してください'
+    }
+    return ''
   }
 
   async change() {
@@ -67,8 +94,9 @@ export default class extends Vue {
       if (e.code === 'auth/wrong-password') {
         this.errMsg = 'パスワードが違います'
       } else {
-        window.alert('エラーが発生しました')
+        this.errMsg = 'エラーが発生しました。もう一度やり直してください'
       }
+      console.log(e)
       this.changing = false
     }
   }

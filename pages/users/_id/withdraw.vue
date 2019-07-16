@@ -70,7 +70,7 @@ export default class extends Vue {
       if (e.code === 'auth/wrong-password') {
         this.errMsg = 'パスワードが違います'
       } else {
-        window.alert('エラーが発生しました')
+        this.errMsg = 'エラーが発生しました。もう一度やり直してください'
       }
       this.deleting = false
     }

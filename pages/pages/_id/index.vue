@@ -49,7 +49,7 @@ import { Page } from '../../..'
       prefetch: true,
       variables(): any {
         return {
-          id: this.$route.params.id
+          id: (this as any).$route.params.id
         }
       },
       query: gql`

@@ -5,16 +5,16 @@
       <div class="field">
         <label class="label">メールアドレス</label>
         <div class="control">
-          <input v-model="email" class="input" type="text" />
+          <input v-model.trim="email" class="input" type="text" />
         </div>
       </div>
       <div class="field">
         <label class="label">パスワード</label>
         <div class="control">
-          <input v-model="password" class="input" type="password" />
+          <input v-model.trim="password" class="input" type="password" />
         </div>
       </div>
-
+      <p class="has-text-danger">{{ errMsg }}</p>
       <div class="has-text-centered">
         <button class="button is-primary" @click="submit">新規作成</button>
       </div>
@@ -33,6 +33,7 @@ import { User } from '..'
 export default class extends Vue {
   email = ''
   password = ''
+  errMsg = ''
 
   async submit() {
     try {
@@ -46,6 +47,16 @@ export default class extends Vue {
       const user = await this.getUser(cred.user.uid)
       this.$router.push('/users/' + user.accountId)
     } catch (e) {
+      if (e.code === 'auth/invalid-email') {
+        this.errMsg = 'メールアドレスの形式が正しくありません'
+      } else if (
+        e.code === 'auth/user-not-found' ||
+        e.code === 'auth/wrong-password'
+      ) {
+        this.errMsg = 'パスワードが違います'
+      } else {
+        this.errMsg = 'エラーが発生しました。もう一度やり直してください'
+      }
       console.log(e)
       console.log(e.code, e.message)
     }

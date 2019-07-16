@@ -10,7 +10,7 @@
       <div class="field">
         <label class="label">ページ名</label>
         <div class="control">
-          <input v-model="name" class="input" type="text" />
+          <input v-model.trim="name" class="input" type="text" />
         </div>
       </div>
 
@@ -22,7 +22,13 @@
         </div>
       </div>
       <div class="has-text-centered create-button">
-        <button class="button is-primary" @click="submit">作成</button>
+        <button
+          class="button is-primary"
+          :disabled="!canSubmit"
+          @click="submit"
+        >
+          作成
+        </button>
       </div>
     </div>
   </div>
@@ -49,6 +55,10 @@ export default class extends Vue {
 
   get user(): User {
     return this.$store.state.user.user
+  }
+
+  get canSubmit(): boolean {
+    return !!this.name
   }
 
   async submit() {

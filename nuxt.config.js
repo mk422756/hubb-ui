@@ -40,7 +40,8 @@ export default {
     { src: '~plugins/dayjs' },
     { src: '~/plugins/fontawesome' },
     { src: '~/plugins/sanitize' },
-    { src: '~/plugins/crop', mode: 'client' }
+    { src: '~/plugins/crop', mode: 'client' },
+    { src: '~/plugins/validate', mode: 'client' }
   ],
   /*
    ** Nuxt.js modules
