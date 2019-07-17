@@ -1,5 +1,9 @@
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <nav
+    class="navbar is-spaced	has-shadow"
+    role="navigation"
+    aria-label="main navigation"
+  >
     <div class="navbar-brand">
       <n-link class="navbar-item" to="/">
         <img
@@ -35,38 +39,8 @@
       class="navbar-menu"
       :class="{ 'is-active': openBurger }"
     >
-      <!-- <div class="navbar-start">
-        <a class="navbar-item"> Home </a>
-
-        <a class="navbar-item">
-          Documentation
-        </a>
-
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            More
-          </a>
-
-          <div class="navbar-dropdown">
-            <a class="navbar-item">
-              About
-            </a>
-            <a class="navbar-item">
-              Jobs
-            </a>
-            <a class="navbar-item">
-              Contact
-            </a>
-            <hr class="navbar-divider" />
-            <a class="navbar-item">
-              Report an issue
-            </a>
-          </div>
-        </div>
-      </div> -->
-
       <div class="navbar-end">
-        <div class="navbar-item">
+        <div class="navbar-item  has-dropdown is-hoverable">
           <div v-if="!isLogin" class="buttons">
             <n-link class="button is-primary" to="/signup">
               <strong>Sign up</strong>
@@ -76,11 +50,24 @@
             </n-link>
           </div>
           <div v-else>
-            <n-link :to="'/users/' + user.accountId">
-              <span class="is-size-5 has-text-weight-bold	">{{
-                user.name
-              }}</span>
-            </n-link>
+            <a class="navbar-link">
+              <img :src="user.image" /><span>{{ user.name }}</span>
+            </a>
+            <div class="navbar-dropdown is-right">
+              <n-link class="navbar-item" :to="`/users/${user.accountId}`">
+                マイページ
+              </n-link>
+              <n-link
+                class="navbar-item"
+                :to="`/users/${user.accountId}/settings`"
+              >
+                設定
+              </n-link>
+              <hr class="navbar-divider" />
+              <a class="navbar-item" @click="logout">
+                ログアウト
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -90,12 +77,19 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import { User } from '..'
+import { auth } from '~/plugins/firebase'
 
 @Component({})
 export default class extends Vue {
   openBurger = false
   toggleBurger() {
     this.openBurger = !this.openBurger
+  }
+
+  async logout() {
+    await auth.signOut()
+    this.$toast.success('ログアウトしました')
+    this.$router.push('/')
   }
 
   get user(): User {
