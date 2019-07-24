@@ -172,7 +172,7 @@ export default class extends Vue {
   }
 }
 </script>
-<style>
+<style scoped>
 .main {
   margin-top: 20px;
 }

@@ -17,13 +17,13 @@
             <strong
               ><n-link :to="`/pages/${id}`">{{ name }}</n-link></strong
             >
-            <small>{{ formattedCreatedAt }}</small>
+            <span class="created-at">{{ formattedCreatedAt }}</span>
             <br />
-            {{ strippedText }}
+            <span class="content-text">{{ strippedText }}</span>
           </p>
         </div>
 
-        <div v-if="userAccountId" class="level">
+        <div v-if="userAccountId" class="level is-mobile">
           <div class="level-left">
             <figure class="image is-32x32 level-item">
               <n-link :to="'/users/' + userAccountId">
@@ -33,7 +33,9 @@
                 </span>
               </n-link>
             </figure>
-            <p class="level-item">By {{ userName }} @{{ userAccountId }}</p>
+            <p class="level-item page-created-by">
+              By {{ userName }} @{{ userAccountId }}
+            </p>
           </div>
         </div>
       </div>
@@ -71,5 +73,17 @@ export default class extends Vue {
 .is-vertical-center {
   display: flex;
   align-items: center;
+}
+
+.content-text {
+  font-size: 0.9rem;
+}
+
+.page-created-by {
+  font-size: 0.8rem;
+}
+
+.created-at {
+  font-size: 0.75rem;
 }
 </style>

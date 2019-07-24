@@ -16,7 +16,7 @@
       </div>
       <p class="has-text-danger">{{ errMsg }}</p>
       <div class="has-text-centered">
-        <button class="button is-primary" @click="submit">新規作成</button>
+        <button class="button is-primary" @click="submit">ログイン</button>
       </div>
     </div>
   </div>

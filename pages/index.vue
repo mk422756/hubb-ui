@@ -1,37 +1,17 @@
 <template>
   <div class="main">
-    <div v-if="isLogin">
-      <div class="user">
-        <box-user
-          :name="user.name"
-          :account-id="user.accountId"
-          :description="user.description"
-          :image="user.image"
-        />
-      </div>
-    </div>
-
-    <div v-else>
-      <div>
-        <n-link class="button" to="signup">Sign up</n-link>
-        <n-link class="button" to="login">Login</n-link>
-      </div>
-    </div>
-
-    <div class="pages">
-      <p class="is-size-5">新着ページ一覧</p>
-      <div v-for="page in pages" :key="page.id" class="page">
-        <box-page
-          :id="page.id"
-          :name="page.name"
-          :text="page.text"
-          :created-at="page.createdAt"
-          :image="page.image"
-          :user-name="page.user.name"
-          :user-account-id="page.user.accountId"
-          :user-image="page.user.image"
-        />
-      </div>
+    <p class="is-size-5">新着ページ一覧</p>
+    <div v-for="page in pages" :key="page.id" class="pages">
+      <box-page
+        :id="page.id"
+        :name="page.name"
+        :text="page.text"
+        :created-at="page.createdAt"
+        :image="page.image"
+        :user-name="page.user.name"
+        :user-account-id="page.user.accountId"
+        :user-image="page.user.image"
+      />
     </div>
   </div>
 </template>
@@ -81,3 +61,8 @@ export default class extends Vue {
   }
 }
 </script>
+<style scoped>
+.pages {
+  margin: 20px 0;
+}
+</style>

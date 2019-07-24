@@ -14,14 +14,7 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'stylesheet',
-        href:
-          '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css'
-      }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
   /*
    ** Customize the progress-bar color
@@ -30,7 +23,10 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['@fortawesome/fontawesome-svg-core/styles.css'],
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css',
+    { src: '~assets/css/bulma.scss', lang: 'scss' }
+  ],
   /*
    ** Plugins to load before mounting the App
    */
@@ -48,7 +44,6 @@ export default {
    */
   modules: [
     // Doc:https://github.com/nuxt-community/modules/tree/master/packages/bulma
-    '@nuxtjs/bulma',
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
     '@nuxtjs/apollo',
@@ -63,7 +58,7 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://localhost:8080/query'
+        httpEndpoint: 'https://hubb-lsg4r7sosa-an.a.run.app/query'
       }
     }
   },

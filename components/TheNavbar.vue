@@ -51,7 +51,9 @@
           </div>
           <div v-else>
             <a class="navbar-link">
-              <img :src="user.image" /><span>{{ user.name }}</span>
+              <img class="user-image" :src="user.image" /><span>{{
+                user.name
+              }}</span>
             </a>
             <div class="navbar-dropdown is-right">
               <n-link class="navbar-item" :to="`/users/${user.accountId}`">
@@ -101,3 +103,8 @@ export default class extends Vue {
   }
 }
 </script>
+<style>
+.user-image {
+  vertical-align: middle;
+}
+</style>
