@@ -82,7 +82,6 @@ export default class extends Vue {
   facebook = ''
   instagram = ''
   homepage = ''
-  birthday = ''
 
   get user(): User {
     return this.$store.state.user.user
@@ -103,7 +102,6 @@ export default class extends Vue {
     this.facebook = user.facebook
     this.instagram = user.instagram
     this.homepage = user.homepage
-    this.birthday = user.birthday
   }
 
   async saveImage() {
@@ -156,7 +154,6 @@ export default class extends Vue {
               instagram
               homepage
               image
-              birthday
             }
           }
         `,

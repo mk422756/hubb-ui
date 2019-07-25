@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 export default {
   mode: 'universal',
   /*
@@ -34,16 +36,15 @@ export default {
     { src: '~plugins/firebase' },
     { src: '~plugins/auth' },
     { src: '~plugins/dayjs' },
-    { src: '~/plugins/fontawesome' },
-    { src: '~/plugins/sanitize' },
-    { src: '~/plugins/crop', mode: 'client' },
-    { src: '~/plugins/validate', mode: 'client' }
+    { src: '~plugins/fontawesome' },
+    { src: '~plugins/sanitize' },
+    { src: '~plugins/crop', mode: 'client' },
+    { src: '~plugins/validate', mode: 'client' }
   ],
   /*
    ** Nuxt.js modules
    */
   modules: [
-    // Doc:https://github.com/nuxt-community/modules/tree/master/packages/bulma
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
     '@nuxtjs/apollo',
@@ -58,7 +59,7 @@ export default {
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: 'https://hubb-lsg4r7sosa-an.a.run.app/query'
+        httpEndpoing: process.env.HTTP_ENDPOINT
       }
     }
   },

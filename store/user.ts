@@ -35,7 +35,6 @@ export const actions: ActionTree<UsersState, RootState> = {
                 instagram
                 homepage
                 image
-                birthday
               }
             }
           `,
