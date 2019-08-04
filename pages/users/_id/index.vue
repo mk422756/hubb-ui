@@ -91,6 +91,41 @@ import { User } from '../../..'
         }
       `
     }
+  },
+  head() {
+    return {
+      title: (this as any).user.name,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: (this as any).user.description
+        },
+        { hid: 'og:type', property: 'og:type', content: 'article' },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: `${(this as any).user.name}`
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: (this as any).user.description
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: `${(this as any).user.image}`
+        },
+        { name: 'twitter:card', content: 'summary' },
+        { name: 'twitter:title', content: `${(this as any).user.name}` },
+        { name: 'twitter:image', content: `${(this as any).user.image}` },
+        {
+          name: 'twitter:description',
+          content: (this as any).user.description
+        }
+      ]
+    }
   }
 })
 export default class extends Vue {

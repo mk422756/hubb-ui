@@ -46,6 +46,7 @@ import PageMainView from '~/components/PageMainView.vue'
 import gql from 'graphql-tag'
 import BoxUser from '~/components/BoxUser.vue'
 import { Page } from '../../..'
+import striptags from 'striptags'
 
 @Component({
   components: {
@@ -78,6 +79,41 @@ import { Page } from '../../..'
           }
         }
       `
+    }
+  },
+  head() {
+    return {
+      title: `${(this as any).page.name}`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: striptags((this as any).page.text)
+        },
+        { hid: 'og:type', property: 'og:type', content: 'article' },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: `${(this as any).page.name}`
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: striptags((this as any).page.text)
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: `${(this as any).page.image}`
+        },
+        { name: 'twitter:card', content: 'summary' },
+        { name: 'twitter:title', content: `${(this as any).page.name}` },
+        { name: 'twitter:image', content: `${(this as any).page.image}` },
+        {
+          name: 'twitter:description',
+          content: striptags((this as any).page.text)
+        }
+      ]
     }
   }
 })
