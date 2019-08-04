@@ -15,21 +15,21 @@
         <div class="control">
           <input v-model.trim="accountId" class="input" type="text" />
         </div>
-        <p class="help is-danger">{{ accountIdError }}</p>
+        <p class="help has-text-info">{{ accountIdError }}</p>
       </div>
       <div class="field">
         <label class="label">メールアドレス</label>
         <div class="control">
           <input v-model.trim="email" class="input" type="text" />
         </div>
-        <p class="help is-danger">{{ emailError }}</p>
+        <p class="help has-text-info">{{ emailError }}</p>
       </div>
       <div class="field">
         <label class="label">パスワード</label>
         <div class="control">
           <input v-model.trim="password" class="input" type="password" />
         </div>
-        <p class="help is-danger">{{ passwordError }}</p>
+        <p class="help has-text-info">{{ passwordError }}</p>
       </div>
       <p class="has-text-danger">{{ errMsg }}</p>
       <div class="has-text-centered">

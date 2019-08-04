@@ -1,32 +1,40 @@
 <template>
-  <div v-if="page && page.user">
-    <div v-if="isMyAccountId">
-      <button class="button is-danger is-pulled-right" @click="deletePage">
-        削除
-      </button>
-      <n-link to="edit" class="button is-primary is-pulled-right" append
-        >編集</n-link
-      >
-    </div>
-    <div v-if="page.image" class="has-text-centered ">
-      <figure class="image container is-128x128">
-        <img :src="page.image" alt="page main image" class="is-inline-block" />
-      </figure>
-    </div>
-    <div class="main-view">
-      <page-main-view
-        :name="page.name"
-        :text="page.text"
-        :created-at="page.createdAt"
-      />
-    </div>
-    <div class="user">
-      <box-user
-        :name="page.user.name"
-        :account-id="page.user.accountId"
-        :description="page.user.description"
-        :image="page.user.image"
-      />
+  <div v-if="page && page.user" class="columns  is-centered">
+    <div class="column is-four-fifths">
+      <div class="is-clearfix">
+        <div v-if="isMyAccountId" class="buttons is-pulled-right">
+          <n-link to="edit" class="button is-primary is-outlined" append
+            >編集</n-link
+          >
+          <button class="button is-danger is-outlined" @click="deletePage">
+            削除
+          </button>
+        </div>
+      </div>
+      <div v-if="page.image" class="has-text-centered ">
+        <figure class="image container is-128x128">
+          <img
+            :src="page.image"
+            alt="page main image"
+            class="is-inline-block"
+          />
+        </figure>
+      </div>
+      <div class="main-view">
+        <page-main-view
+          :name="page.name"
+          :text="page.text"
+          :created-at="page.createdAt"
+        />
+      </div>
+      <div class="user">
+        <box-user
+          :name="page.user.name"
+          :account-id="page.user.accountId"
+          :description="page.user.description"
+          :image="page.user.image"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -123,7 +131,6 @@ export default class extends Vue {
 }
 
 .main-view {
-  width: 800px;
-  margin: 0 auto;
+  margin-top: 50px;
 }
 </style>

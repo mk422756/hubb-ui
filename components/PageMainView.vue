@@ -5,6 +5,7 @@
     </div>
     <div class="main">
       <div
+        class="text"
         v-html="
           $sanitize(text, {
             allowedTags: [
@@ -56,12 +57,22 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import dayjs from 'dayjs'
+import hljs from 'highlight.js/lib/highlight'
+import javascript from 'highlight.js/lib/languages/javascript'
+import go from 'highlight.js/lib/languages/go'
+hljs.registerLanguage('javascript', javascript)
+hljs.registerLanguage('go', go)
+import 'highlight.js/styles/github.css'
 
 @Component({})
 export default class extends Vue {
   @Prop({ default: '' }) readonly name!: string
   @Prop({ default: '' }) readonly text!: string
   @Prop({ default: '' }) readonly createdAt!: string
+
+  mounted() {
+    hljs.initHighlighting()
+  }
 
   get formattedCreatedAt() {
     return this.createdAt === ''
@@ -73,12 +84,15 @@ export default class extends Vue {
 <style scoped>
 .main {
   margin-top: 50px;
-  line-height: 40px;
-  font-size: 19px;
-  color: #555;
+  color: #333;
 }
 
 .title {
   font-size: 40px;
+}
+
+.text {
+  line-height: 1.9;
+  font-size: 16px;
 }
 </style>

@@ -6,11 +6,7 @@
   >
     <div class="navbar-brand">
       <n-link class="navbar-item" to="/">
-        <img
-          src="https://bulma.io/images/bulma-logo.png"
-          width="112"
-          height="28"
-        />
+        <img src="@/assets/image/logo.png" />
       </n-link>
       <n-link
         v-if="isLogin && user"
@@ -43,10 +39,10 @@
         <div class="navbar-item  has-dropdown is-hoverable">
           <div v-if="!isLogin" class="buttons">
             <n-link class="button is-primary" to="/signup">
-              <strong>Sign up</strong>
+              <strong>新規登録</strong>
             </n-link>
             <n-link class="button is-light" to="/login">
-              Log in
+              ログイン
             </n-link>
           </div>
           <div v-else>
