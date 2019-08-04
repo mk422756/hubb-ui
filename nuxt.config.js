@@ -81,7 +81,8 @@ export default {
     '@nuxtjs/eslint-module',
     '@nuxtjs/apollo',
     '@nuxtjs/dotenv',
-    '@nuxtjs/toast'
+    '@nuxtjs/toast',
+    ['@nuxtjs/google-analytics', { id: process.env.GOOGLEANALYTICS_ID }]
   ],
 
   toast: {
