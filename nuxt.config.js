@@ -82,6 +82,7 @@ export default {
     '@nuxtjs/apollo',
     '@nuxtjs/dotenv',
     '@nuxtjs/toast',
+    '@nuxtjs/sitemap',
     ['@nuxtjs/google-analytics', { id: process.env.GOOGLEANALYTICS_ID }]
   ],
 
