@@ -13,7 +13,10 @@
         class="navbar-item"
         :to="`/users/${user.accountId}/create_page`"
       >
-        <button class="button is-primary is-outlined">新規ページ作成</button>
+        <button class="button is-primary is-outlined is-small">
+          <font-awesome-icon icon="pencil-alt" />
+          <span style="margin-left: 5px;">新規ページ</span>
+        </button>
       </n-link>
       <a
         role="button"
@@ -47,9 +50,10 @@
           </div>
           <div v-else>
             <a class="navbar-link">
-              <img class="user-image" :src="user.image" /><span>{{
-                user.name
-              }}</span>
+              <img class="user-image" :src="user.image" /><span
+                class="nav-username"
+                >{{ user.name }}</span
+              >
             </a>
             <div class="navbar-dropdown is-right">
               <n-link class="navbar-item" :to="`/users/${user.accountId}`">
@@ -102,5 +106,9 @@ export default class extends Vue {
 <style>
 .user-image {
   vertical-align: middle;
+}
+
+.nav-username {
+  margin-left: 5px;
 }
 </style>

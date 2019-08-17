@@ -1,40 +1,58 @@
 <template>
   <div v-if="user" class="main">
     <div>
-      <!-- <div v-if="isMyAccountId" class="title is-inline">マイページ</div> -->
-      <section class="is-clearfix">
-        <div class="is-pulled-left">
-          <figure class="image is-64x64">
-            <img v-if="user.image" class="is-rounded" :src="user.image" />
+      <section class="columns is-mobile">
+        <div
+          class="column is-one-fifth"
+          style="margin: auto; padding-right: 0;"
+        >
+          <figure class="image">
+            <img v-if="user.image" :src="user.image" />
             <span v-else class="icon is-large">
               <font-awesome-icon icon="user" class="fas fa-3x" />
             </span>
           </figure>
         </div>
-        <div class="is-pulled-left user-main">
-          <h1 class="is-size-5 has-text-weight-semibold">{{ user.name }}</h1>
-          <small>@{{ user.accountId }}</small>
-        </div>
-        <div class="is-pulled-right">
-          <n-link
-            v-if="isMyAccountId"
-            to="profile"
-            class="button is-primary is-small is-outlined"
-            append
-            >プロフィール変更</n-link
-          >
+        <div class="column">
+          <div class="is-clearfix">
+            <div class="is-pulled-left">
+              <h1 class="is-size-5 has-text-weight-semibold">
+                {{ user.name }}
+              </h1>
+              <small>@{{ user.accountId }}</small>
+            </div>
+            <div class="is-pulled-right">
+              <n-link
+                v-if="isMyAccountId"
+                to="profile"
+                class="button is-primary is-small is-outlined"
+                append
+                >プロフィール変更</n-link
+              >
+            </div>
+          </div>
+          <div class="description">
+            <p>{{ user.description }}</p>
+          </div>
+          <div class="icons">
+            <a v-if="user.twitter" :href="user.twitter">
+              <font-awesome-icon class="twitter" :icon="['fab', 'twitter']" />
+            </a>
+            <a v-if="user.facebook" :href="user.facebook">
+              <font-awesome-icon class="facebook" :icon="['fab', 'facebook']" />
+            </a>
+            <a v-if="user.instagram" :href="user.instagram">
+              <font-awesome-icon
+                class="instagram"
+                :icon="['fab', 'instagram']"
+              />
+            </a>
+            <a v-if="user.homepage" :href="user.homepage">
+              <font-awesome-icon class="homepage" icon="home" />
+            </a>
+          </div>
         </div>
       </section>
-      <!-- <div class="user columns is-centered">
-        <div class="column is-two-thirds">
-          <box-user
-            :name="user.name"
-            :account-id="user.accountId"
-            :description="user.description"
-            :image="user.image"
-          />
-        </div>
-      </div> -->
       <hr />
       <p class="is-size-5 has-text-weight-semibold page-list">ページ一覧</p>
       <div class="pages">
@@ -80,6 +98,10 @@ import { User } from '../../..'
             accountId
             image
             description
+            twitter
+            instagram
+            facebook
+            homepage
             pages {
               id
               name
@@ -156,10 +178,31 @@ export default class extends Vue {
   margin-top: 10px;
 }
 
-.image {
-  margin-top: 20px;
+.description {
+  margin-top: 3px;
+  font-size: 0.85rem;
 }
-.user-main {
-  margin-left: 10px;
+.icons {
+  margin-top: 3px;
+}
+
+.icons a {
+  margin-right: 5px;
+}
+
+.twitter {
+  color: #1da1f2;
+}
+
+.facebook {
+  color: #3b5998;
+}
+
+.instagram {
+  color: #e95950;
+}
+
+.homepage {
+  color: #ffb3b3;
 }
 </style>
