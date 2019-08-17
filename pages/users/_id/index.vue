@@ -93,6 +93,9 @@ import { User } from '../../..'
     }
   },
   head() {
+    if (!(this as any).user) {
+      return {}
+    }
     return {
       title: (this as any).user.name,
       meta: [

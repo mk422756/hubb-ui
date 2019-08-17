@@ -4,6 +4,8 @@ export default ({ app, store }: { app: any; store: any }): void => {
   auth.onAuthStateChanged(
     async (user): Promise<void> => {
       if (user) {
+        const idToken = await user.getIdToken(/* forceRefresh */ true)
+        await app.$apolloHelpers.onLogin(idToken)
         store.dispatch('user/fetchUser', { uid: user.uid }).catch((): void => {
           // 5回リトライしてユーザー情報を取得できなければエラー
           let count = 0
@@ -19,9 +21,6 @@ export default ({ app, store }: { app: any; store: any }): void => {
             count++
           }, 1000)
         })
-
-        const idToken = await user.getIdToken(/* forceRefresh */ true)
-        await app.$apolloHelpers.onLogin(idToken)
       } else {
         store.dispatch('user/resetUser')
         await app.$apolloHelpers.onLogout()

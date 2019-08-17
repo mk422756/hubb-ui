@@ -1,83 +1,53 @@
 <template>
-  <div class="main">
-    <div class="profile-settings box">
-      <div>
-        <h2 class="has-text-weight-semibold is-size-5">ページ画像</h2>
-        <div class="has-text-centered">
-          <crop ref="crop" />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">ページ名</label>
-        <div class="control">
-          <input v-model.trim="name" class="input" type="text" />
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">本文</label>
-        <div class="control editor">
-          <!-- <textarea v-model="text" class="textarea" /> -->
-          <editor :text="text" @update-text="updateText" />
-        </div>
-      </div>
-      <div class="has-text-centered create-button">
-        <button
-          class="button is-primary"
-          :disabled="!canSubmit"
-          @click="submit"
-        >
-          作成
-        </button>
-      </div>
-    </div>
-  </div>
+  <page-edit @submit="submit" />
 </template>
 
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Vue, Component } from 'vue-property-decorator'
 import gql from 'graphql-tag'
-import Crop from '~/components/ImageCrop.vue'
-import Editor from '~/components/Editor.vue'
 import { storage } from '~/plugins/firebase'
 import { User } from '../../..'
+import PageEdit from '~/components/PageEdit.vue'
+import { EditParam } from '~/components/PageEdit.vue'
 
 @Component({
   components: {
-    Editor,
-    Crop
+    PageEdit
   }
 })
 export default class extends Vue {
-  name = ''
-  text = ''
-
   get user(): User {
     return this.$store.state.user.user
   }
 
-  get canSubmit(): boolean {
-    return !!this.name
-  }
-
-  async submit() {
+  async submit(param: EditParam) {
     try {
       const res = await (this as any).$apollo.mutate({
         mutation: gql`
-          mutation($name: String!, $text: String!, $userId: ID!) {
-            createPage(input: { text: $text, name: $name, userId: $userId }) {
+          mutation(
+            $name: String!
+            $text: String!
+            $userId: ID!
+            $tags: [String]
+          ) {
+            createPage(
+              input: { text: $text, name: $name, userId: $userId, tags: $tags }
+            ) {
               id
             }
           }
         `,
         variables: {
-          name: this.name,
-          text: this.text,
-          userId: this.$store.state.user.user.id
+          name: param.name,
+          text: param.text,
+          userId: this.$store.state.user.user.id,
+          tags: param.tags
         }
       })
-      await this.saveImage(res.data.createPage.id)
+      if (param.image) {
+        await this.saveImage(res.data.createPage.id, param.image)
+      }
       this.$router.push(`/pages/${res.data.createPage.id}`)
       this.$toast.success('保存しました')
     } catch (e) {
@@ -86,10 +56,9 @@ export default class extends Vue {
     }
   }
 
-  async saveImage(pageId: string) {
-    const data = (this as any).$refs.crop.getData()
+  async saveImage(pageId: string, data: string): Promise<any> {
     if (!data) {
-      return
+      return Promise.reject()
     }
     const storageRef = storage.ref()
     const imagesRef = storageRef.child(
@@ -117,19 +86,5 @@ export default class extends Vue {
       }
     })
   }
-
-  updateText(text: string) {
-    this.text = text
-  }
 }
 </script>
-<style scoped>
-.box {
-  margin: 0 auto;
-  max-width: 800px;
-}
-
-.create-button {
-  margin-top: 50px;
-}
-</style>

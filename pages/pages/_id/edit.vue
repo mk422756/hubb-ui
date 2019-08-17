@@ -1,54 +1,26 @@
 <template>
-  <div v-if="isMyAccountId && page" class="main">
-    <div class="profile-settings box">
-      <div>
-        <h2 class="has-text-weight-semibold is-size-5">ページ画像</h2>
-        <div class="has-text-centered">
-          <crop ref="crop" :image="page.image" />
-          <button class="button is-primary" @click="saveImage">
-            画像保存
-          </button>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">ページ名</label>
-        <div class="control">
-          <input v-model="name" class="input" type="text" />
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">本文</label>
-        <div class="control editor">
-          <editor :text="text" @update-text="updateText" />
-        </div>
-      </div>
-      <div class="has-text-centered create-button">
-        <button
-          class="button is-primary"
-          :disabled="!canSubmit"
-          @click="submit"
-        >
-          保存
-        </button>
-      </div>
-    </div>
-  </div>
+  <page-edit
+    v-if="isMyAccountId && page"
+    :name="page.name"
+    :text="page.text"
+    :image="page.image"
+    :tag="tagsToString"
+    @submit="submit"
+  />
 </template>
 
 <script lang="ts">
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Vue, Component } from 'vue-property-decorator'
 import gql from 'graphql-tag'
-import Editor from '~/components/Editor.vue'
-import Crop from '~/components/ImageCrop.vue'
 import { Page, User } from '../../..'
 import { storage } from '~/plugins/firebase'
+import PageEdit from '~/components/PageEdit.vue'
+import { EditParam } from '~/components/PageEdit.vue'
 
 @Component({
   components: {
-    Editor,
-    Crop
+    PageEdit
   },
   apollo: {
     page: {
@@ -71,6 +43,9 @@ import { storage } from '~/plugins/firebase'
               name
               description
             }
+            tags {
+              name
+            }
           }
         }
       `
@@ -79,29 +54,23 @@ import { storage } from '~/plugins/firebase'
 })
 export default class extends Vue {
   page: Page | null = null
-  name = ''
-  text = ''
-  get pageId() {
-    return this.$route.params.id
-  }
 
-  get canSubmit() {
-    return !!this.name
-  }
-
-  created() {
+  get tagsToString(): string {
     if (this.page) {
-      this.name = this.page.name
-      this.text = this.page.text
+      return this.page.tags.map(tag => tag.name).join(',')
     }
+    return ''
   }
 
-  async submit() {
+  async submit(param: EditParam) {
     try {
       await (this as any).$apollo.mutate({
         mutation: gql`
-          mutation($id: ID!, $name: String!, $text: String!) {
-            updatePage(id: $id, input: { name: $name, text: $text }) {
+          mutation($id: ID!, $name: String!, $text: String!, $tags: [String]) {
+            updatePage(
+              id: $id
+              input: { name: $name, text: $text, tags: $tags }
+            ) {
               id
               name
               text
@@ -111,10 +80,14 @@ export default class extends Vue {
         // Parameters
         variables: {
           id: this.$route.params.id,
-          name: this.name,
-          text: this.text
+          name: param.name,
+          text: param.text,
+          tags: param.tags
         }
       })
+      if (param.image) {
+        await this.saveImage(param.image)
+      }
       this.$toast.success('保存しました')
       this.$router.push(`/pages/${this.$route.params.id}`)
     } catch (e) {
@@ -140,13 +113,8 @@ export default class extends Vue {
     })
   }
 
-  updateText(text: string) {
-    this.text = text
-  }
-
-  async saveImage() {
+  async saveImage(data: string) {
     try {
-      const data = (this as any).$refs.crop.getData()
       const storageRef = storage.ref()
       const imagesRef = storageRef.child(
         `user/${this.user.uid}/page/${this.$route.params.id}/main`
@@ -164,6 +132,7 @@ export default class extends Vue {
   get user(): User {
     return this.$store.state.user.user
   }
+
   get isMyAccountId(): boolean {
     if (!this.page) {
       return false
@@ -172,12 +141,3 @@ export default class extends Vue {
   }
 }
 </script>
-<style scoped>
-.main {
-  margin-top: 20px;
-}
-
-.user {
-  margin-top: 50px;
-}
-</style>

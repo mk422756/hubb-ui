@@ -3,6 +3,11 @@
     <div>
       <h1 class="title">{{ name }}</h1>
     </div>
+    <div class="tags">
+      <template v-for="tag in tags">
+        <span :key="tag.id" class="tag is-info">{{ tag.name }}</span>
+      </template>
+    </div>
     <div class="main">
       <div
         class="text"
@@ -68,6 +73,7 @@ import 'highlight.js/styles/github.css'
 export default class extends Vue {
   @Prop({ default: '' }) readonly name!: string
   @Prop({ default: '' }) readonly text!: string
+  @Prop({ default: [] }) readonly tags!: string[]
   @Prop({ default: '' }) readonly createdAt!: string
 
   mounted() {
@@ -94,5 +100,9 @@ export default class extends Vue {
 .text {
   line-height: 1.9;
   font-size: 16px;
+}
+
+.tags {
+  margin-top: 10px;
 }
 </style>

@@ -24,6 +24,7 @@
         <page-main-view
           :name="page.name"
           :text="page.text"
+          :tags="page.tags"
           :created-at="page.createdAt"
         />
       </div>
@@ -75,6 +76,10 @@ import striptags from 'striptags'
               name
               description
               image
+            }
+            tags {
+              id
+              name
             }
           }
         }

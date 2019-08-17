@@ -11,7 +11,6 @@ declare module 'vue/types/options' {
     apollo?: string | any
   }
 }
-
 export type Maybe<T> = T | null
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
@@ -27,8 +26,10 @@ export interface Mutation {
   __typename?: 'Mutation'
   createUser: User
   updateUser: User
+  deleteUser: Scalars['Boolean']
   createPage: Page
   updatePage: Page
+  deletePage: Scalars['Boolean']
 }
 
 export interface MutationCreateUserArgs {
@@ -40,6 +41,10 @@ export interface MutationUpdateUserArgs {
   input: UpdateUser
 }
 
+export interface MutationDeleteUserArgs {
+  id: Scalars['ID']
+}
+
 export interface MutationCreatePageArgs {
   input: NewPage
 }
@@ -49,10 +54,15 @@ export interface MutationUpdatePageArgs {
   input: UpdatePage
 }
 
+export interface MutationDeletePageArgs {
+  id: Scalars['ID']
+}
+
 export interface NewPage {
   text: Scalars['String']
   name: Scalars['String']
   userId: Scalars['ID']
+  tags?: Maybe<Maybe<Scalars['String']>[]>
 }
 
 export interface NewUser {
@@ -68,6 +78,7 @@ export interface Page {
   text: Scalars['String']
   user: User
   image: Scalars['String']
+  tags: Tag[]
   createdAt: Scalars['String']
   updatedAt: Scalars['String']
 }
@@ -78,6 +89,8 @@ export interface Query {
   user: User
   pages: Page[]
   page: Page
+  tags: Tag[]
+  tag: Tag
 }
 
 export interface QueryUserArgs {
@@ -90,9 +103,24 @@ export interface QueryPageArgs {
   id?: Maybe<Scalars['ID']>
 }
 
+export interface QueryTagArgs {
+  id?: Maybe<Scalars['ID']>
+}
+
+export interface Tag {
+  __typename?: 'Tag'
+  id: Scalars['ID']
+  name: Scalars['String']
+  pages: Page[]
+  createdAt: Scalars['String']
+  updatedAt: Scalars['String']
+}
+
 export interface UpdatePage {
   text?: Maybe<Scalars['String']>
   name?: Maybe<Scalars['String']>
+  image?: Maybe<Scalars['String']>
+  tags?: Maybe<Maybe<Scalars['String']>[]>
 }
 
 export interface UpdateUser {
@@ -102,7 +130,7 @@ export interface UpdateUser {
   instagram?: Maybe<Scalars['String']>
   facebook?: Maybe<Scalars['String']>
   homepage?: Maybe<Scalars['String']>
-  birthday?: Maybe<Scalars['String']>
+  image?: Maybe<Scalars['String']>
 }
 
 export interface User {
@@ -117,7 +145,6 @@ export interface User {
   instagram: Scalars['String']
   facebook: Scalars['String']
   homepage: Scalars['String']
-  birthday: Scalars['String']
   pages: Page[]
   createdAt: Scalars['String']
   updatedAt: Scalars['String']
