@@ -113,5 +113,12 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+
+  buildModules: ['@nuxt/typescript-build'],
+
+  typescript: {
+    typeCheck: true,
+    ignoreNotFoundWarnings: true
   }
 }
