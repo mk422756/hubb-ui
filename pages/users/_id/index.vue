@@ -35,13 +35,22 @@
             <p>{{ user.description }}</p>
           </div>
           <div class="icons">
-            <a v-if="user.twitter" :href="user.twitter">
+            <a
+              v-if="user.twitter"
+              :href="`https://twitter.com/${user.twitter}`"
+            >
               <font-awesome-icon class="twitter" :icon="['fab', 'twitter']" />
             </a>
-            <a v-if="user.facebook" :href="user.facebook">
+            <a
+              v-if="user.facebook"
+              :href="`https://facebook.com/${user.facebook}`"
+            >
               <font-awesome-icon class="facebook" :icon="['fab', 'facebook']" />
             </a>
-            <a v-if="user.instagram" :href="user.instagram">
+            <a
+              v-if="user.instagram"
+              :href="`https://instagram.com/${user.instagram}`"
+            >
               <font-awesome-icon
                 class="instagram"
                 :icon="['fab', 'instagram']"

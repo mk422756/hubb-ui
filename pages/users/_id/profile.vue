@@ -145,6 +145,7 @@ export default class extends Vue {
               }
             ) {
               id
+              uid
               name
               accountId
               image
@@ -153,7 +154,6 @@ export default class extends Vue {
               facebook
               instagram
               homepage
-              image
             }
           }
         `,
@@ -170,6 +170,7 @@ export default class extends Vue {
       })
       this.$store.dispatch('user/updateUser', { user: ret.data.updateUser })
       this.$toast.success('プロフィール変更を保存しました')
+      this.$router.push(`/users/${ret.data.updateUser.accountId}`)
     } catch (e) {
       console.log(e)
       this.$toast.error('プロフィール変更の保存に失敗しました')

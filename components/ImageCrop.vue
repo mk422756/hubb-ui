@@ -5,11 +5,11 @@
       class="border"
       :width="200"
       :height="200"
-      :canvas-color="'#e6e6e6'"
+      :canvas-color="'#fff'"
       :accept="'image/*'"
       :placeholder="'画像を選択してください'"
       :show-remove-button="true"
-      :prevent-white-space="true"
+      :prevent-white-space="false"
       :initial-image="image"
       remove-button-color="black"
     />
