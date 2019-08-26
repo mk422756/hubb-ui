@@ -94,15 +94,40 @@ export default class extends Vue {
 }
 
 .title {
-  font-size: 40px;
+  font-size: 2.1rem;
+  line-height: 1.5;
 }
 
 .text {
-  line-height: 1.9;
-  font-size: 16px;
+  line-height: 1.7;
+  font-size: 15px;
 }
 
 .tags {
-  margin-top: 10px;
+  margin-top: 15px;
+}
+
+.text >>> p {
+  margin: 30px 0;
+}
+
+.text >>> h1 {
+  font-size: 1.8rem;
+}
+
+.text >>> h2 {
+  font-size: 1.6rem;
+}
+
+.text >>> h3 {
+  font-size: 1.3rem;
+}
+
+.text >>> pre {
+  padding: 20px 10px;
+}
+
+.text >>> img {
+  margin: 40px 0;
 }
 </style>
