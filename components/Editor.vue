@@ -172,4 +172,50 @@ export default {
   opacity: 1;
   visibility: visible;
 }
+
+.editor >>> h1 {
+  font-size: 1.8rem;
+}
+
+.editor >>> h2 {
+  font-size: 1.6rem;
+}
+
+.editor >>> h3 {
+  font-size: 1.3rem;
+}
+
+.editor >>> blockquote {
+  position: relative;
+  padding: 20px 15px 8px 15px;
+  box-sizing: border-box;
+  font-style: italic;
+  background: #efefef;
+  color: #555;
+}
+
+.editor >>> blockquote:before {
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+  left: 3px;
+  content: '“';
+  font-family: sans-serif;
+  color: #cfcfcf;
+  font-size: 50px;
+  line-height: 1;
+}
+
+.editor >>> blockquote p {
+  padding: 0;
+  margin: 10px 0;
+  line-height: 1.7;
+}
+
+.editor >>> blockquote cite {
+  display: block;
+  text-align: right;
+  color: #888888;
+  font-size: 0.9em;
+}
 </style>
