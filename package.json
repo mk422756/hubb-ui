@@ -28,6 +28,7 @@
     "@nuxtjs/sitemap": "^1.2.0",
     "@nuxtjs/toast": "^3.2.1",
     "@types/vuelidate": "^0.7.5",
+    "@vue/composition-api": "^0.2.1",
     "dayjs": "^1.8.14",
     "firebase": "^6.2.3",
     "graphql-tag": "^2.10.1",

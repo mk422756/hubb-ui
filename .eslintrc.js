@@ -18,6 +18,7 @@ module.exports = {
   ],
   plugins: ['vue', '@typescript-eslint'],
   rules: {
+    '@typescript-eslint/no-explicit-any': 'off',
     'no-console': 'off',
     '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/member-delimiter-style': 'off',

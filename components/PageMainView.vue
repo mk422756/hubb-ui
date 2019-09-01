@@ -5,7 +5,9 @@
     </div>
     <div class="tags">
       <template v-for="tag in tags">
-        <span :key="tag.id" class="tag is-info">{{ tag.name }}</span>
+        <n-link :key="tag.id" :to="`/tags/${tag.id}`" class="tag is-info">{{
+          tag.name
+        }}</n-link>
       </template>
     </div>
     <div class="main">

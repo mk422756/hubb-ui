@@ -70,6 +70,7 @@ export default {
     { src: '~plugins/dayjs' },
     { src: '~plugins/fontawesome' },
     { src: '~plugins/sanitize' },
+    { src: '~plugins/composition-api' },
     { src: '~plugins/crop', mode: 'client' },
     { src: '~plugins/validate', mode: 'client' }
   ],
