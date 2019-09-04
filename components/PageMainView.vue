@@ -102,7 +102,6 @@ export default class extends Vue {
 
 .text {
   line-height: 1.7;
-  font-size: 15px;
 }
 
 .tags {
@@ -115,14 +114,17 @@ export default class extends Vue {
 
 .text >>> h1 {
   font-size: 1.8rem;
+  font-weight: bold;
 }
 
 .text >>> h2 {
   font-size: 1.6rem;
+  font-weight: bold;
 }
 
 .text >>> h3 {
   font-size: 1.3rem;
+  font-weight: bold;
 }
 
 .text >>> pre {
@@ -131,5 +133,15 @@ export default class extends Vue {
 
 .text >>> img {
   margin: 40px 0;
+}
+
+.text >>> p::after {
+  white-space: pre;
+  content: '\A';
+}
+
+.text >>> blockquote {
+  padding: 10px;
+  background-color: rgb(234, 248, 255);
 }
 </style>
