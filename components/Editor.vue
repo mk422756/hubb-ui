@@ -3,14 +3,41 @@
     <no-ssr>
       <div class="editor">
         <editor-floating-menu
-          v-slot="{ commands, isActive, menu }"
+          v-slot="{ commands, isActive, menu, focused }"
           :editor="editor"
         >
           <div
             class="editor__floating-menu"
-            :class="{ 'is-active': menu.isActive }"
-            :style="`top: ${menu.top}px`"
+            :class="{
+              'is-active': menu.isActive || focused || linkMenuIsActive
+            }"
+            :style="`top: ${menu.top - 20}px`"
           >
+            <form
+              v-if="linkMenuIsActive"
+              @submit.prevent="setLinkUrl(commands.link, linkUrl)"
+            >
+              <div class="field has-addons">
+                <div class="control">
+                  <input
+                    ref="linkInput"
+                    v-model="linkUrl"
+                    class="input is-small"
+                    type="text"
+                    placeholder="https://"
+                    @keydown.esc="hideLinkMenu"
+                  />
+                </div>
+                <div class="control">
+                  <a
+                    class="button is-small"
+                    @click="setLinkUrl(commands.link, null)"
+                  >
+                    <font-awesome-icon icon="trash" />
+                  </a>
+                </div>
+              </div>
+            </form>
             <div class="buttons has-addons">
               <button
                 class="menubar__button button is-small is-outlined"
@@ -63,12 +90,19 @@
               >
                 <font-awesome-icon icon="image" />
               </button>
+              <button
+                class="menubar__button button is-small is-outlined"
+                @click="showLinkMenu()"
+              >
+                <font-awesome-icon icon="link" />
+              </button>
             </div>
           </div>
         </editor-floating-menu>
         <editor-content :editor="editor" />
       </div>
       <image-modal ref="ytmodal" @onConfirm="addCommand" />
+      <span v-if="editor">{{ editor.content }}</span>
     </no-ssr>
   </div>
 </template>
@@ -87,7 +121,8 @@ import {
   Blockquote,
   History,
   CodeBlockHighlight,
-  Image
+  Image,
+  Link
 } from 'tiptap-extensions'
 
 export default {
@@ -104,7 +139,9 @@ export default {
   },
   data() {
     return {
-      editor: null
+      editor: null,
+      linkMenuIsActive: false,
+      linkUrl: null
     }
   },
   mounted() {
@@ -112,6 +149,7 @@ export default {
       content: this.text,
       extensions: [
         // The editor will accept paragraphs and headline elements as part of its document schema.
+        new Link(),
         new Heading({ levels: [1, 2, 3] }),
         new Bold(),
         new CodeBlock(),
@@ -143,6 +181,21 @@ export default {
       if (data.command !== null) {
         data.command(data.data)
       }
+    },
+    showLinkMenu() {
+      this.linkMenuIsActive = true
+      this.$nextTick(() => {
+        this.$refs.linkInput.focus()
+      })
+    },
+    hideLinkMenu() {
+      this.linkUrl = null
+      this.linkMenuIsActive = false
+    },
+
+    setLinkUrl(command, url) {
+      command({ href: url })
+      this.hideLinkMenu()
     }
   }
 }
