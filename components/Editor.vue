@@ -229,16 +229,19 @@ export default {
 .editor >>> h1 {
   font-size: 1.8rem;
   font-weight: bold;
+  margin: 30px 0;
 }
 
 .editor >>> h2 {
   font-size: 1.6rem;
   font-weight: bold;
+  margin: 30px 0;
 }
 
 .editor >>> h3 {
   font-size: 1.3rem;
   font-weight: bold;
+  margin: 30px 0;
 }
 
 .editor >>> p {

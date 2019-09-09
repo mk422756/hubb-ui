@@ -120,16 +120,19 @@ export default class extends Vue {
 .text >>> h1 {
   font-size: 1.8rem;
   font-weight: bold;
+  margin: 30px 0;
 }
 
 .text >>> h2 {
   font-size: 1.6rem;
   font-weight: bold;
+  margin: 30px 0;
 }
 
 .text >>> h3 {
   font-size: 1.3rem;
   font-weight: bold;
+  margin: 30px 0;
 }
 
 .text >>> pre {
