@@ -10,6 +10,11 @@
         }}</n-link>
       </template>
     </div>
+    <div>
+      <small
+        ><strong>作成日 {{ formattedCreatedAt }}</strong></small
+      >
+    </div>
     <div class="main">
       <div
         class="text"
@@ -85,7 +90,7 @@ export default class extends Vue {
   get formattedCreatedAt() {
     return this.createdAt === ''
       ? ''
-      : dayjs(this.createdAt).format('YYYY/MM/DD HH:mm:ss')
+      : dayjs(this.createdAt).format('YYYY/MM/DD')
   }
 }
 </script>
