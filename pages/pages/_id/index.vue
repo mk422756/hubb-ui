@@ -36,6 +36,33 @@
           :image="page.user.image"
         />
       </div>
+
+      <div class="carousel">
+        <p><strong>同じユーザーの投稿</strong></p>
+        <carousel :per-page="3" :loop="true">
+          <template v-for="page in page.user.pages">
+            <slide :key="page.id">
+              <div class="card">
+                <div class="card-content">
+                  <n-link :to="`/pages/${page.id}`">
+                    <figure class="image container is-64x64">
+                      <img v-if="page.image" :src="page.image" />
+                      <div v-else class="icon is-large book">
+                        <font-awesome-icon icon="book-open" class="fas fa-3x" />
+                      </div>
+                    </figure>
+                  </n-link>
+                  <p>
+                    <small
+                      ><strong>{{ page.name }}</strong></small
+                    >
+                  </p>
+                </div>
+              </div>
+            </slide>
+          </template>
+        </carousel>
+      </div>
     </div>
   </div>
 </template>
@@ -76,6 +103,11 @@ import striptags from 'striptags'
               name
               description
               image
+              pages {
+                id
+                name
+                image
+              }
             }
             tags {
               id
@@ -173,5 +205,18 @@ export default class extends Vue {
 
 .main-view {
   margin-top: 50px;
+}
+
+.carousel {
+  margin-top: 30px;
+}
+
+.card {
+  height: 100%;
+  vertical-align: middle;
+}
+
+.book {
+  color: #ccc;
 }
 </style>

@@ -73,7 +73,8 @@ export default {
     { src: '~plugins/sanitize' },
     { src: '~plugins/composition-api' },
     { src: '~plugins/crop', mode: 'client' },
-    { src: '~plugins/validate', mode: 'client' }
+    { src: '~plugins/validate', mode: 'client' },
+    { src: '~plugins/carousel', mode: 'client' }
   ],
   /*
    ** Nuxt.js modules
