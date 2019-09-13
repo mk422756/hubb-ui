@@ -57,7 +57,8 @@
             allowedAttributes: {
               a: ['href'],
               img: ['src'],
-              iframe: ['src']
+              iframe: ['src'],
+              code: ['class']
             },
             allowedIframeHostnames: ['www.youtube.com']
           })
@@ -69,12 +70,8 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import dayjs from 'dayjs'
-import hljs from 'highlight.js/lib/highlight'
-import javascript from 'highlight.js/lib/languages/javascript'
-import go from 'highlight.js/lib/languages/go'
-hljs.registerLanguage('javascript', javascript)
-hljs.registerLanguage('go', go)
-import 'highlight.js/styles/github.css'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/github-gist.css'
 
 @Component({})
 export default class extends Vue {
@@ -84,7 +81,10 @@ export default class extends Vue {
   @Prop({ default: '' }) readonly createdAt!: string
 
   mounted() {
-    hljs.initHighlighting()
+    const codes = document.getElementsByTagName('code')
+    for (let i = 0; i < codes.length; i++) {
+      hljs.highlightBlock(codes[i])
+    }
   }
 
   get formattedCreatedAt() {
