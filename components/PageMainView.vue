@@ -118,12 +118,17 @@ export default class extends Vue {
 }
 
 .text >>> h1 {
+  border-left: 5px solid rgb(159, 159, 255);
+  border-bottom: 1px solid #ccc;
+  padding-left: 15px;
   font-size: 1.8rem;
   font-weight: bold;
   margin: 30px 0;
 }
 
 .text >>> h2 {
+  border-left: 3px solid rgb(167, 221, 255);
+  padding-left: 10px;
   font-size: 1.6rem;
   font-weight: bold;
   margin: 30px 0;
@@ -136,7 +141,12 @@ export default class extends Vue {
 }
 
 .text >>> pre {
-  padding: 20px 10px;
+  padding: 2px;
+  background-color: #eee;
+}
+.text >>> pre code {
+  padding: 20px;
+  line-height: 1.5rem;
 }
 
 .text >>> img {
@@ -149,7 +159,27 @@ export default class extends Vue {
 }
 
 .text >>> blockquote {
-  padding: 10px;
-  background-color: rgb(234, 248, 255);
+  position: relative;
+  padding: 20px 15px 8px 15px;
+  box-sizing: border-box;
+  font-style: italic;
+  background-color: #eee;
+  color: #555;
+}
+
+.text >>> blockquote:before {
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+  left: 3px;
+  content: '“';
+  font-family: sans-serif;
+  color: #cfcfcf;
+  font-size: 50px;
+  line-height: 1;
+}
+
+.text >>> blockquote p {
+  margin: 10px;
 }
 </style>

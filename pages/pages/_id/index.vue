@@ -125,7 +125,7 @@ import striptags from 'striptags'
         {
           hid: 'description',
           name: 'description',
-          content: striptags((this as any).page.text)
+          content: striptags((this as any).page.text).slice(0, 150)
         },
         { hid: 'og:type', property: 'og:type', content: 'article' },
         {
@@ -136,7 +136,7 @@ import striptags from 'striptags'
         {
           hid: 'og:description',
           property: 'og:description',
-          content: striptags((this as any).page.text)
+          content: striptags((this as any).page.text).slice(0, 150)
         },
         {
           hid: 'og:image',
@@ -148,7 +148,7 @@ import striptags from 'striptags'
         { name: 'twitter:image', content: `${(this as any).page.image}` },
         {
           name: 'twitter:description',
-          content: striptags((this as any).page.text)
+          content: striptags((this as any).page.text).slice(0, 150)
         }
       ]
     }
