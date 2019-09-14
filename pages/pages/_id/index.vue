@@ -28,6 +28,40 @@
           :created-at="page.createdAt"
         />
       </div>
+      <div class="social">
+        <span class="twitter">
+          <a
+            href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+            class="twitter-share-button"
+            data-show-count="false"
+            >Tweet</a
+          ><script
+            async
+            src="https://platform.twitter.com/widgets.js"
+            charset="utf-8"
+          />
+        </span>
+        <span class="hatena">
+          <a
+            href="https://b.hatena.ne.jp/entry/"
+            class="hatena-bookmark-button"
+            data-hatena-bookmark-layout="basic-label-counter"
+            data-hatena-bookmark-lang="ja"
+            title="このエントリーをはてなブックマークに追加"
+            ><img
+              src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png"
+              alt="このエントリーをはてなブックマークに追加"
+              width="20"
+              height="20"
+              style="border: none;"/></a
+          ><script
+            type="text/javascript"
+            src="https://b.st-hatena.com/js/bookmark_button.js"
+            charset="utf-8"
+            async="async"
+          />
+        </span>
+      </div>
       <div class="user">
         <box-user
           :name="page.user.name"
@@ -39,29 +73,34 @@
 
       <div class="carousel">
         <p><strong>同じユーザーの投稿</strong></p>
-        <carousel :per-page="3" :loop="true">
-          <template v-for="page in page.user.pages">
-            <slide :key="page.id">
-              <div class="card">
-                <div class="card-content">
-                  <n-link :to="`/pages/${page.id}`">
-                    <figure class="image container is-64x64">
-                      <img v-if="page.image" :src="page.image" />
-                      <div v-else class="icon is-large book">
-                        <font-awesome-icon icon="book-open" class="fas fa-3x" />
-                      </div>
-                    </figure>
-                  </n-link>
-                  <p>
-                    <small
-                      ><strong>{{ page.name }}</strong></small
-                    >
-                  </p>
+        <no-ssr>
+          <carousel :per-page="3" :loop="true">
+            <template v-for="page in page.user.pages">
+              <slide :key="page.id">
+                <div class="card">
+                  <div class="card-content">
+                    <n-link :to="`/pages/${page.id}`">
+                      <figure class="image container is-64x64">
+                        <img v-if="page.image" :src="page.image" />
+                        <div v-else class="icon is-large book">
+                          <font-awesome-icon
+                            icon="book-open"
+                            class="fas fa-3x"
+                          />
+                        </div>
+                      </figure>
+                    </n-link>
+                    <p>
+                      <small
+                        ><strong>{{ page.name }}</strong></small
+                      >
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </slide>
-          </template>
-        </carousel>
+              </slide>
+            </template>
+          </carousel>
+        </no-ssr>
       </div>
     </div>
   </div>
@@ -218,5 +257,9 @@ export default class extends Vue {
 
 .book {
   color: #ccc;
+}
+
+.social {
+  margin: 30px 0;
 }
 </style>
