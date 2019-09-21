@@ -106,7 +106,7 @@ export default class extends Vue {
 }
 
 .text {
-  line-height: 1.7;
+  line-height: 2;
 }
 
 .tags {
@@ -114,28 +114,28 @@ export default class extends Vue {
 }
 
 .text >>> p {
-  margin: 30px 0;
-}
-
-.text >>> h1 {
-  border-left: 5px solid rgb(159, 159, 255);
-  border-bottom: 1px solid #ccc;
-  padding-left: 15px;
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin: 30px 0;
+  margin: 20px 0;
 }
 
 .text >>> h2 {
+  border-left: 5px solid rgb(159, 159, 255);
+  border-bottom: 1px solid #ccc;
+  padding-left: 15px;
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin: 40px 0;
+}
+
+.text >>> h3 {
   border-left: 3px solid rgb(167, 221, 255);
   padding-left: 10px;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: bold;
   margin: 30px 0;
 }
 
-.text >>> h3 {
-  font-size: 1.3rem;
+.text >>> h4 {
+  font-size: 1.2rem;
   font-weight: bold;
   margin: 30px 0;
 }
@@ -150,7 +150,7 @@ export default class extends Vue {
 }
 
 .text >>> img {
-  margin: 40px 0;
+  margin: 30px 0;
 }
 
 .text >>> p::after {

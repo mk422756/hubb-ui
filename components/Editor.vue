@@ -41,27 +41,24 @@
             <div class="buttons has-addons">
               <button
                 class="menubar__button button is-small is-outlined"
-                :class="{ 'is-active': isActive.heading({ level: 1 }) }"
-                @click="commands.heading({ level: 1 })"
-              >
-                <font-awesome-icon icon="heading" />
-                <strong>1</strong>
-              </button>
-              <button
-                class="menubar__button button is-small is-outlined"
                 :class="{ 'is-active': isActive.heading({ level: 2 }) }"
                 @click="commands.heading({ level: 2 })"
               >
-                <font-awesome-icon icon="heading" />
-                <strong>2</strong>
+                <strong>見出し1</strong>
               </button>
               <button
                 class="menubar__button button is-small is-outlined"
                 :class="{ 'is-active': isActive.heading({ level: 3 }) }"
                 @click="commands.heading({ level: 3 })"
               >
-                <font-awesome-icon icon="heading" />
-                <strong>3</strong>
+                <strong>見出し2</strong>
+              </button>
+              <button
+                class="menubar__button button is-small is-outlined"
+                :class="{ 'is-active': isActive.heading({ level: 4 }) }"
+                @click="commands.heading({ level: 4 })"
+              >
+                <strong>見出し3</strong>
               </button>
               <button
                 class="menubar__button button is-small is-outlined"
@@ -150,7 +147,7 @@ export default {
       extensions: [
         // The editor will accept paragraphs and headline elements as part of its document schema.
         new Link(),
-        new Heading({ levels: [1, 2, 3] }),
+        new Heading({ levels: [2, 3, 4] }),
         new Bold(),
         new CodeBlock(),
         new HardBreak(),
@@ -226,26 +223,26 @@ export default {
   visibility: visible;
 }
 
-.editor >>> h1 {
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin: 30px 0;
-}
-
 .editor >>> h2 {
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: bold;
-  margin: 30px 0;
+  margin: 40px 0;
 }
 
 .editor >>> h3 {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 30px 0;
+}
+
+.editor >>> h4 {
+  font-size: 1.2rem;
   font-weight: bold;
   margin: 30px 0;
 }
 
 .editor >>> p {
-  margin: 30px 0;
+  margin: 20px 0;
 }
 
 .editor >>> blockquote {
