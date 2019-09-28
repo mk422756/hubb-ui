@@ -4,7 +4,7 @@
       <div class="media-left">
         <n-link :to="`/pages/${id}`">
           <figure class="image is-64x64">
-            <img v-if="image" :src="image" alt="user image" />
+            <img v-if="image" :src="image" :alt="name" />
             <span v-else class="icon is-large">
               <font-awesome-icon icon="book-open" class="fas fa-3x" />
             </span>
@@ -14,9 +14,9 @@
       <div class="media-content">
         <div class="content">
           <p>
-            <strong
-              ><n-link :to="`/pages/${id}`">{{ name }}</n-link></strong
-            >
+            <strong>
+              <n-link :to="`/pages/${id}`">{{ name }}</n-link>
+            </strong>
             <span class="created-at">{{ formattedCreatedAt }}</span>
             <br />
             <span class="content-text">{{ strippedText }}</span>
@@ -27,7 +27,7 @@
           <div class="level-left">
             <figure class="image is-32x32 level-item">
               <n-link :to="'/users/' + userAccountId">
-                <img v-if="userImage" :src="userImage" alt="user image" />
+                <img v-if="userImage" :src="userImage" :alt="userAccountId" />
                 <span v-else class="icon is-medium">
                   <font-awesome-icon icon="user" class="fas fa-lg" />
                 </span>

@@ -4,7 +4,7 @@
       <div class="media-left">
         <n-link :to="`/users/${accountId}`">
           <figure class="image is-64x64">
-            <img v-if="image" :src="image" alt="user image" />
+            <img v-if="image" :src="image" :alt="name" />
             <span v-else class="icon is-large">
               <font-awesome-icon icon="user" class="fas fa-3x" />
             </span>
@@ -14,9 +14,9 @@
       <div class="media-content">
         <div class="content">
           <p>
-            <strong
-              ><n-link :to="`/users/${accountId}`">{{ name }}</n-link></strong
-            >
+            <strong>
+              <n-link :to="`/users/${accountId}`">{{ name }}</n-link>
+            </strong>
             <small>@{{ accountId }}</small>
             <br />
             {{ description }}

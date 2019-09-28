@@ -1,12 +1,12 @@
 <template>
   <nav
-    class="navbar is-spaced	has-shadow"
+    class="navbar is-spaced has-shadow"
     role="navigation"
     aria-label="main navigation"
   >
     <div class="navbar-brand">
       <n-link class="navbar-item" to="/">
-        <img src="@/assets/image/logo.png" />
+        <img src="@/assets/image/logo.png" alt="Hubb" />
       </n-link>
       <n-link
         v-if="isLogin && user"
@@ -39,36 +39,29 @@
       :class="{ 'is-active': openBurger }"
     >
       <div class="navbar-end">
-        <div class="navbar-item  has-dropdown is-hoverable">
+        <div class="navbar-item has-dropdown is-hoverable">
           <div v-if="!isLogin" class="buttons">
             <n-link class="button is-primary" to="/signup">
               <strong>新規登録</strong>
             </n-link>
-            <n-link class="button is-light" to="/login">
-              ログイン
-            </n-link>
+            <n-link class="button is-light" to="/login">ログイン</n-link>
           </div>
           <div v-else>
             <a class="navbar-link">
-              <img class="user-image" :src="user.image" /><span
-                class="nav-username"
-                >{{ user.name }}</span
-              >
+              <img class="user-image" :src="user.image" />
+              <span class="nav-username">{{ user.name }}</span>
             </a>
             <div class="navbar-dropdown is-right">
-              <n-link class="navbar-item" :to="`/users/${user.accountId}`">
-                マイページ
-              </n-link>
+              <n-link class="navbar-item" :to="`/users/${user.accountId}`"
+                >マイページ</n-link
+              >
               <n-link
                 class="navbar-item"
                 :to="`/users/${user.accountId}/settings`"
+                >設定</n-link
               >
-                設定
-              </n-link>
               <hr class="navbar-divider" />
-              <a class="navbar-item" @click="logout">
-                ログアウト
-              </a>
+              <a class="navbar-item" @click="logout">ログアウト</a>
             </div>
           </div>
         </div>

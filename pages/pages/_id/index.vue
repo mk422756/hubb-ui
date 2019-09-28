@@ -1,5 +1,5 @@
 <template>
-  <div v-if="page && page.user" class="columns  is-centered">
+  <div v-if="page && page.user" class="columns is-centered">
     <div class="column is-four-fifths">
       <div class="is-clearfix">
         <div v-if="isMyAccountId" class="buttons is-pulled-right">
@@ -11,7 +11,7 @@
           </button>
         </div>
       </div>
-      <div v-if="page.image" class="has-text-centered ">
+      <div v-if="page.image" class="has-text-centered">
         <figure class="image container is-128x128">
           <img
             :src="page.image"
@@ -35,7 +35,8 @@
             class="twitter-share-button"
             data-show-count="false"
             >Tweet</a
-          ><script
+          >
+          <script
             async
             src="https://platform.twitter.com/widgets.js"
             charset="utf-8"
@@ -48,13 +49,16 @@
             data-hatena-bookmark-layout="basic-label-counter"
             data-hatena-bookmark-lang="ja"
             title="このエントリーをはてなブックマークに追加"
-            ><img
+          >
+            <img
               src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png"
               alt="このエントリーをはてなブックマークに追加"
               width="20"
               height="20"
-              style="border: none;"/></a
-          ><script
+              style="border: none;"
+            />
+          </a>
+          <script
             type="text/javascript"
             src="https://b.st-hatena.com/js/bookmark_button.js"
             charset="utf-8"
@@ -72,7 +76,9 @@
       </div>
 
       <div class="carousel">
-        <p><strong>同じユーザーの投稿</strong></p>
+        <p>
+          <strong>同じユーザーの投稿</strong>
+        </p>
         <no-ssr>
           <carousel :per-page="3" :loop="true">
             <template v-for="page in page.user.pages">
@@ -81,7 +87,11 @@
                   <div class="card-content">
                     <n-link :to="`/pages/${page.id}`">
                       <figure class="image container is-64x64">
-                        <img v-if="page.image" :src="page.image" />
+                        <img
+                          v-if="page.image"
+                          :src="page.image"
+                          :alt="page.name"
+                        />
                         <div v-else class="icon is-large book">
                           <font-awesome-icon
                             icon="book-open"
@@ -91,9 +101,9 @@
                       </figure>
                     </n-link>
                     <p>
-                      <small
-                        ><strong>{{ page.name }}</strong></small
-                      >
+                      <small>
+                        <strong>{{ page.name }}</strong>
+                      </small>
                     </p>
                   </div>
                 </div>
