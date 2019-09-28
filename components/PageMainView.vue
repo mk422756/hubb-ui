@@ -129,7 +129,7 @@ export default class extends Vue {
 .text >>> h3 {
   border-left: 3px solid rgb(167, 221, 255);
   padding-left: 10px;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: bold;
   margin: 30px 0;
 }

@@ -44,21 +44,21 @@
                 :class="{ 'is-active': isActive.heading({ level: 2 }) }"
                 @click="commands.heading({ level: 2 })"
               >
-                <strong>見出し1</strong>
+                <strong>H1</strong>
               </button>
               <button
                 class="menubar__button button is-small is-outlined"
                 :class="{ 'is-active': isActive.heading({ level: 3 }) }"
                 @click="commands.heading({ level: 3 })"
               >
-                <strong>見出し2</strong>
+                <strong>H2</strong>
               </button>
               <button
                 class="menubar__button button is-small is-outlined"
                 :class="{ 'is-active': isActive.heading({ level: 4 }) }"
                 @click="commands.heading({ level: 4 })"
               >
-                <strong>見出し3</strong>
+                <strong>H3</strong>
               </button>
               <button
                 class="menubar__button button is-small is-outlined"
@@ -80,6 +80,13 @@
                 @click="commands.code_block"
               >
                 <font-awesome-icon icon="code" />
+              </button>
+              <button
+                class="menubar__button button is-small is-outlined"
+                :class="{ 'is-active': isActive.strike() }"
+                @click="commands.strike"
+              >
+                <font-awesome-icon icon="strikethrough" />
               </button>
               <button
                 class="menubar__button button is-small is-outlined"
@@ -119,7 +126,8 @@ import {
   History,
   CodeBlockHighlight,
   Image,
-  Link
+  Link,
+  Strike
 } from 'tiptap-extensions'
 
 export default {
@@ -154,6 +162,7 @@ export default {
         new Blockquote(),
         new History(),
         new Image(),
+        new Strike(),
         new CodeBlockHighlight({
           languages: {
             javascript,
@@ -230,7 +239,7 @@ export default {
 }
 
 .editor >>> h3 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: bold;
   margin: 30px 0;
 }
