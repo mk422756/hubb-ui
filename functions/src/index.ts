@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import * as functions from 'firebase-functions'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const admin = require('firebase-admin')
-admin.initializeApp(functions.config().firebase)
+import { getAnalytics } from './analytics'
+import admin from './admin'
 const fireStore = admin.firestore()
 
 exports.addUserToFirestore = functions
@@ -24,3 +23,5 @@ exports.deleteUserFromFirestore = functions
       .doc(user.uid)
       .delete()
   })
+
+exports.getAnalytics = getAnalytics
