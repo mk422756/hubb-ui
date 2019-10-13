@@ -97,7 +97,6 @@ export const getAnalytics = functions
                 .doc(pageView.pageId)
                 .set({ pv: pageView.pv, updatedAt: new Date() })
             }
-            return null
           }
         )
       })

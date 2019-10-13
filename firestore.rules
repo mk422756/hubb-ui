@@ -1,7 +1,11 @@
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
+    match /users {
       allow read, write: if false;
+    }
+    match /pv/{pv} {
+   		allow write: if false;
+      allow read: if true;
     }
   }
 }

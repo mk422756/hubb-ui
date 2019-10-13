@@ -7,6 +7,9 @@
           <div class="column is-two-thirds">
             <nuxt />
           </div>
+          <div class="column is-one-quarter">
+            <sidebar />
+          </div>
         </div>
       </div>
     </section>
@@ -15,10 +18,12 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import Navbar from '~/components/TheNavbar.vue'
+import Sidebar from '~/components/TheSidebar.vue'
 
 @Component({
   components: {
-    Navbar
+    Navbar,
+    Sidebar
   }
 })
 export default class extends Vue {}
