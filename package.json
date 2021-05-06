@@ -35,7 +35,7 @@
     "highlight.js": "^9.15.10",
     "nuxt": "^2.10.1",
     "nuxt-dropzone": "^1.0.2",
-    "sanitize-html": "^1.20.1",
+    "sanitize-html": "^2.3.2",
     "striptags": "^3.1.1",
     "tiptap": "^1.23.0",
     "tiptap-extensions": "^1.24.0",
