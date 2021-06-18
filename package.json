@@ -36,7 +36,7 @@
     "nuxt": "^2.10.1",
     "nuxt-dropzone": "^1.0.2",
     "sanitize-html": "^1.20.1",
-    "striptags": "^3.1.1",
+    "striptags": "^3.2.0",
     "tiptap": "^1.23.0",
     "tiptap-extensions": "^1.24.0",
     "ts-node": "^8.3.0",
